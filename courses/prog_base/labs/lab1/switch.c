@@ -44,6 +44,7 @@ if (op<0) {
 inverse = a;
 a = b;
 b = inverse;
+op = abs(op);
 };
 switch (op) {
 case 0: return -a;
@@ -71,7 +72,8 @@ case 7: return abs(a)*sizeof(double);
      };
 case 11: if (a==0) {
 return 0;
-} else {
+}
+ else {
 return (int)((1+1)*PI*cos((1+1)*a*b)/a); //ќкругл€ю аналогом floor.
 };
 default:
@@ -87,6 +89,7 @@ default:
 
 
 int main()
-{
-    return 0;
+{ int op =-4; int a = 2; int b = 4;
+int result = exec(op,a,b);
+    return result;
 }
