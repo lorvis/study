@@ -12,19 +12,26 @@ if (a<0&&b<0&&c<0) {
         if (b<a&&b<c) {
             modmin = abs(b);
             sum2 = a+c;
-        } else {
-            modmin = abs(c);
-            sum2 = a+b;
+        } else { if (c<b&&c<a)
+            {modmin = abs(c);
+            sum2 = a+b;};
         }
     }
 };
-if (sum2<-256&&(modmin&(modmin-1)==0)&&modmin<256) {
-        result = 1; return result;
+ if (sum2<-256&&(modmin&(modmin-1)==0)&&modmin<256) {
+        return 1;
 } else {
-if (abs(sum2)>16||modmin>8) {
-    result = 1; return result;
-
+if ((abs(sum2)>16)||(modmin>8)) {
+    return 1;
 } else {
+if (a<0&&b>0&&c>0) {return (a>-256);};
+if (a>0&&b<0&&c>0) {return (b>-256);};
+if (a<0&&b>0&&c<0) {return (c>-256);};
+if (a<0&&b<0&&c>0) {return ((a+b)*2>-256);};
+if (a>0&&b<0&&c<0) {return ((b+c)*2>-256);};
+if (a<0&&b>0&&c<0) {return ((a+c)*2>-256);};
+}
+{
     if (sum2<0||modmin<0){
         if ((sum2<0&&modmin>=0)) {
                 result=(sum2>-256);
@@ -42,18 +49,18 @@ if (abs(sum2)>16||modmin>8) {
     }
 }
 }
- {
-if (sum2>=0&&modmin>=0) {
-if (sum2>modmin) {max = sum2; min = modmin;} else {max = modmin; min = sum2;};
-result = ((log(32768)/log(max))<=min);
+if (a>0&&b>0&&c>0) {if (a>0&&b>0&&c>0) {
+if (a>b&&a>c) {max = a;};
+if (b>a&&b>c) {max = b;};
+if (c>b&&c>a) {max = c;};
+if (log(32768)/log(max) <= min) {return 1;};
 };
-}
 if (result==1) {return result;} else {return 0;};
-
+}
 }
 
 int main()
-{
-    printf("Hello world!\n");
-    return 0;
+{ int aval=2;int bval=3;int cval=5;
+ int result = satisfies(aval,bval,cval);
+    return result;
 }
