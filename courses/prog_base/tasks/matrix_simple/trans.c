@@ -75,32 +75,3 @@ void rotateCW180(int mat[4][4])
 }
 return mat;
 }
-int main()
-{
-    int t=2;
-    srand(time(&t));
-    int i,j;
-    int mat[4][4]={
-        {1,2,3,4},
-        {5,6,7,8},
-        {9,10,11,12},
-        {13,14,15,16}};
-    printf("First! \n");
-   for (i=0;i<=3;i++) {
-    for (j=0;j<=3;j++) {
-        printf("%5i ",mat[i][j]);
-    };
-      printf("\n");
-   };
-   printf("\n");
-   fillRand(mat);
-   printf("First! \n");
-   for (i=0;i<=3;i++) {
-    for (j=0;j<=3;j++) {
-        printf("%5i ",mat[i][j]);
-    };
-      printf("\n");
-   };
-   printf("\n");
-    return 0;
-}
