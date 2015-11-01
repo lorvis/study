@@ -7,7 +7,7 @@ void fillRand(int mat[4][4])
     int j;
     for(i=0;i<=3;i++) {
         for(j=0;j<=3;j++) {
-            mat[i][j]=(rand()%999)*(-1+2*(rand()%2));
+            mat[i][j]=(rand()%100)*(-1+2*(rand()%2));
         }
     }
 
@@ -73,5 +73,23 @@ void rotateCW180(int mat[4][4])
        };
         printf("\n");
 }
+
 return mat;
+}
+
+void transposSide(int mat[4][4]) {
+    int i,j;
+for(i=0;i<=3;i++) {
+j=mat[0][i];
+mat[0][i]=mat[3-i][3];
+mat[3-i][3]=j;
+}
+for(i=1;i<=2;i++) {
+j=mat[i][0];
+mat[i][0]=mat[3][3-i];
+mat[3][3-i]=j;
+}
+j=mat[1][1];
+mat[1][1]=mat[2][2];
+mat[2][2]=j;
 }
