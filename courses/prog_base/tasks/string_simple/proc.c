@@ -33,3 +33,4 @@ char * process(char * resultStr, const char * textLines[], \
     }
 
 
+}
