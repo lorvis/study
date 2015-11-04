@@ -7,7 +7,7 @@ void fillRand(int mat[4][4])
     int j;
     for(i=0;i<=3;i++) {
         for(j=0;j<=3;j++) {
-            mat[i][j]=(rand()%100)*(-1+2*(rand()%2));
+            mat[i][j]=(rand()%999)*(-1+2*(rand()%2));
         }
     }
 
