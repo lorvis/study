@@ -12,8 +12,3 @@ readwriting = fopen(pwrite,"w");
 fprintf(readwriting,"%i",(int)(reading+0.5));
 }
 
-int main()
-{
-    fprocess("number.txt","output.txt");
-    return 0;
-}
