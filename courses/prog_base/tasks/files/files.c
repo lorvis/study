@@ -10,5 +10,6 @@ printf("%lf",reading);
 fclose(readwriting);
 readwriting = fopen(pwrite,"w");
 fprintf(readwriting,"%i",(int)(reading+0.5));
+fclose(readwriting);
 }
 
