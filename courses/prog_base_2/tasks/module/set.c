@@ -1,5 +1,11 @@
 #include "Set.h"
 
+struct set_t {
+int size;
+int * arr;
+};
+
+
 set_t * set_new (int arr_size) {
 set_t * aNew_set = (set_t *)malloc(sizeof(set_t));
 aNew_set->arr = (int *)malloc(sizeof(int)*arr_size);

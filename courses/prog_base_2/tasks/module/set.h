@@ -3,10 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-struct set_t {
-int size;
-int * arr;
-};
+
 typedef struct set_t set_t;
 
 void set_add_range (set_t * set_reciever,int low_edge, int high_edge);
