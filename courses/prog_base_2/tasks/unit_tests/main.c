@@ -7,7 +7,7 @@
 #include "set.h"
 
 // unit-test function
-static void new_int_set_t_pt(void **state)
+static void new__set_t_pt__int(void **state)
 {
     set_t * test_set = NULL;
     test_set = set_new(10);
@@ -15,7 +15,7 @@ static void new_int_set_t_pt(void **state)
     set_delete(test_set);
 }
 
-static void add_range_void_set_t_and_2_int_edges(void **state)
+static void add_range__void__set_t_and_2_int_edges(void **state)
 {
    set_t * test_set = set_new(10);
    set_add_range(test_set,0,4);
@@ -28,7 +28,7 @@ static void add_range_void_set_t_and_2_int_edges(void **state)
    }
    set_delete(test_set);
 }
-static void delete_range_void_set_t_and_2_int_edges(void **state)
+static void delete_range__void__set_t_and_2_int_edges(void **state)
 {
 set_t * test_set = set_new(10);
    set_add_range(test_set,0,9);
@@ -43,7 +43,7 @@ set_t * test_set = set_new(10);
    set_delete(test_set);
 }
 
-static void absolute_complement_set_t_pt_out_2_set_t_pt_and_const_char_in(void **state)
+static void absolute_complement__set_t_pt__2_set_t_pt_and_const_char(void **state)
 {
 set_t * test_set_A = set_new(10);
 set_t * test_set_B = set_new(10);
@@ -66,7 +66,7 @@ set_delete(test_set_B);
 set_delete(test_set_C);
 }
 
-static void relative_complement_set_t_pt_out_2_set_t_pt_and_const_char_in(void **state)
+static void relative_complement__set_t_pt__2_set_t_pt_and_const_char(void **state)
 {
 set_t * test_set_A = set_new(10);
 set_t * test_set_B = set_new(10);
@@ -86,7 +86,7 @@ set_delete(test_set_B);
 set_delete(test_set_C);
 }
 
-static void merge_set_t_pt_out_2_set_t_pt_and_const_char_in(void **state)
+static void merge__set_t_pt__2_set_t_pt_and_const_char(void **state)
 {
 set_t * test_set_A = set_new(10);
 set_t * test_set_B = set_new(10);
@@ -106,7 +106,7 @@ set_delete(test_set_B);
 set_delete(test_set_C);
 }
 
-static void intersection_set_t_pt_out_2_set_t_pt_and_const_char_in(void **state)
+static void intersection__set_t_pt__2_set_t_pt_and_const_char(void **state)
 {
 set_t * test_set_A = set_new(10);
 set_t * test_set_B = set_new(10);
@@ -129,7 +129,7 @@ set_delete(test_set_B);
 set_delete(test_set_C);
 }
 
-static void measure_power_int_set_t_pt(void **state)
+static void measure_power__int__set_t_pt(void **state)
 {
 set_t * test_set_A = set_new(10);
 int i,test_count = 0;
@@ -143,7 +143,7 @@ assert_int_equal(6,test_count);
 set_delete(test_set_A);
 }
 
-static void print_size_int_set_t_pt(void **state)
+static void print_size__int__set_t_pt(void **state)
 {
     set_t * test_set_A = set_new(10);
     assert_int_equal(10,set_print_size(test_set_A));
@@ -153,15 +153,15 @@ static void print_size_int_set_t_pt(void **state)
 int main(void) {
     const struct CMUnitTest tests[] =
     {
-        cmocka_unit_test(new_int_set_t_pt),
-        cmocka_unit_test(add_range_void_set_t_and_2_int_edges),
-        cmocka_unit_test(delete_range_void_set_t_and_2_int_edges),
-        cmocka_unit_test(absolute_complement_set_t_pt_out_2_set_t_pt_and_const_char_in),
-        cmocka_unit_test(relative_complement_set_t_pt_out_2_set_t_pt_and_const_char_in),
-        cmocka_unit_test(merge_set_t_pt_out_2_set_t_pt_and_const_char_in),
-        cmocka_unit_test(intersection_set_t_pt_out_2_set_t_pt_and_const_char_in),
-        cmocka_unit_test(measure_power_int_set_t_pt),
-        cmocka_unit_test(print_size_int_set_t_pt),
+        cmocka_unit_test(new__set_t_pt__int),
+        cmocka_unit_test(add_range__void__set_t_and_2_int_edges),
+        cmocka_unit_test(delete_range__void__set_t_and_2_int_edges),
+        cmocka_unit_test(absolute_complement__set_t_pt__2_set_t_pt_and_const_char),
+        cmocka_unit_test(relative_complement__set_t_pt__2_set_t_pt_and_const_char),
+        cmocka_unit_test(merge__set_t_pt__2_set_t_pt_and_const_char),
+        cmocka_unit_test(intersection__set_t_pt__2_set_t_pt_and_const_char),
+        cmocka_unit_test(measure_power__int__set_t_pt),
+        cmocka_unit_test(print_size__int__set_t_pt),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
