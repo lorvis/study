@@ -15,28 +15,36 @@ reader_t reader_new(void * input);
 
 typedef thread_t * writer_t;
 
-struct mut_string_pt_with_char_pt_arg{
+//String, char and mutex as writer's args
+
+struct mutexedCallbackStringCharArgument{
 mutex_t * mutex_arg;
 char* wString;
 char* wChar;
 };
 
-struct mut_two_char_pt_arg{
+//args for writer's callback
+
+struct argsForWriter{
 mutex_t * mutex_arg;
 char * first_char_pt_arg;
 char * second_char_pt_arg;
 };
 
-struct mut_char_pt{
+//char and mutex as reader's args
+
+struct mutexedCallbackCharArgument{
 mutex_t * mutex_arg;
 char * some_char;
 };
 
-typedef struct mut_char_pt mut_char_pt;
-typedef struct mut_string_pt_with_char_pt_arg mut_string_pt_with_char_pt_arg;
-typedef struct mut_two_char_pt_arg mut_two_char_pt_arg;
+typedef struct mutexedCallbackCharArgument mutexedCallbackCharArgument; //
+typedef struct mutexedCallbackStringCharArgument mutexedCallbackStringCharArgument;
+typedef struct argsForWriter argsForWriter;
 
-writer_t  writer_new(mut_string_pt_with_char_pt_arg * input);
+writer_t  writer_new(mutexedCallbackStringCharArgument * input);
 void writer_free(writer_t to_free);
+reader_t reader_new(void * input);
+void reader_free(reader_t to_free);
 
 #endif // WRITER_READER_HEADER_INCLUDED
