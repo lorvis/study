@@ -1,0 +1,42 @@
+[
+    {
+    "Name":"Vladislav",
+    "Surname":"Yeremenko",
+    "Birthdate":"18-09-1998",
+    "Skill":"10/10",
+    "Height": 1.7999,
+    "Course" : 1,
+    "Team":[
+        {
+        "Name":"Taras",
+        "Surname":"Abdulov",
+        "Skill":"5/10"
+        },
+        {
+        "Name":"Ivan",
+        "Surname":"Babenko",
+        "Skill":"2/10"
+        },
+        {
+        "Name":"Alexander",
+        "Surname":"Boborov",
+        "Skill":"1/10"
+        }
+    ]
+    },
+    {
+    "Name":"Oleg",
+    "Surname":"Vasenko",
+    "Birthdate":"01-01-1991",
+    "Skill":"0/10",
+    "Height": 1.55,
+    "Course" : 3,
+    "Team":[
+        {
+        "Name":"Petro",
+        "Surname":"Konenko",
+        "Skill":"9/10"
+        }
+    ]
+    }
+]

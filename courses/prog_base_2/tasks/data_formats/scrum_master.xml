@@ -1,0 +1,50 @@
+<ScrumMasters>
+
+    <ScrumMaster>
+
+        <Name>Vladislav</Name>
+        <Surname>Yeremenko</Surname>
+        <Birthdate>18-09-1998</Birthdate>
+        <Skill>10/10</Skill>
+        <Height>1.7999</Height>
+        <Course>1</Course>
+        <Team>
+
+            <Teammate Name = "Taras">
+                <Surname>Abdulov</Surname>
+                <Skill>5/10</Skill>
+            </Teammate>
+
+            <Teammate Name = "Ivan">
+                <Surname>Babenko</Surname>
+                <Skill>2/10</Skill>
+            </Teammate>
+
+            <Teammate Name = "Alexander">
+                <Surname>Boborov</Surname>
+                <Skill>1/10</Skill>
+            </Teammate>
+
+        </Team>
+
+    </ScrumMaster>
+
+    <ScrumMaster>
+        <Name>Oleg</Name>
+        <Surname>Vasenko</Surname>
+        <Birthdate>01-01-1991</Birthdate>
+        <Skill>0/10</Skill>
+        <Height>1.55</Height>
+        <Course>3</Course>
+        <Team>
+
+            <Teammate Name = "Petro">
+                <Surname>Konenko</Surname>
+                <Skill>9/10</Skill>
+            </Teammate>
+
+	</Team>
+
+    </ScrumMaster>
+
+</ScrumMasters>
