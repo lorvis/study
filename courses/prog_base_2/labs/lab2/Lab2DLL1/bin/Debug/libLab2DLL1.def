@@ -1,0 +1,4 @@
+EXPORTS
+    DllMain@12 @1
+    action @2
+    check @3

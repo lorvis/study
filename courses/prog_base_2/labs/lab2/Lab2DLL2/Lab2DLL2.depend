@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1461357234 source:c:\users\eve\studygit\courses\prog_base_2\labs\lab2\lab2dll2\main.cpp
+	<stdio.h>
+	"main.h"
+	"queue_t.h"
+
+1461347832 c:\users\eve\studygit\courses\prog_base_2\labs\lab2\lab2dll2\main.h
+	<windows.h>
+	"queue_t.h"
+
+1461352159 c:\users\eve\studygit\courses\prog_base_2\labs\lab2\lab2dll2\queue_t.h
+
