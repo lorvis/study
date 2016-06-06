@@ -1,0 +1,412 @@
+# depslib dependency file v1.0
+1459924478 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/file_linux.c
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+
+1459924454 source:/home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"socket.h"
+	"file.h"
+
+1459920521 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/libsocket/socket.h
+
+1459924482 /home/devincube/projects/CoursesRepo/courses/prog_base_2/practice/client_server/http_server/file.h
+
+1459965459 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\file_win.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1460923498 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stddef.h>
+	"socket.h"
+	"file.h"
+	"student.h"
+	"http.h"
+
+1459965459 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\libsocket\socket.h
+
+1459965459 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\file.h
+
+1460143339 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\student.c
+	<stdlib.h>
+	<stdio.h>
+	"cJSON.h"
+	"student.h"
+
+1459967555 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\cjson\cjson.h
+
+1460143343 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\student.h
+
+1460142843 c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\http.h
+
+1460923041 source:c:\users\devincube\desktop\repos\coursesrepo\courses\prog_base_2\practice\client_server\http_server\http.c
+	<stdlib.h>
+	<stdio.h>
+	<stddef.h>
+	<string.h>
+	"http.h"
+
+1463273858 source:d:\temp\c\http_server\file_win.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1463273858 source:d:\temp\c\http_server\http.c
+	<stdlib.h>
+	<stdio.h>
+	<stddef.h>
+	<string.h>
+	"http.h"
+
+1463273858 d:\temp\c\http_server\http.h
+
+1464810041 source:d:\temp\c\http_server\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stddef.h>
+	<signal.h>
+	"socket.h"
+	"file.h"
+	"http.h"
+	"io.h"
+	"tower.h"
+
+1463273858 d:\temp\c\http_server\socket.h
+
+1463273858 d:\temp\c\http_server\file.h
+
+1463273858 d:\temp\c\http_server\student.h
+
+1463273858 d:\temp\c\http_server\io.h
+
+1463273858 source:d:\temp\c\http_server\student.c
+	<stdlib.h>
+	<stdio.h>
+	"cJSON.h"
+	"student.h"
+
+1463273858 d:\temp\c\http_server\cjson.h
+
+1464809042 d:\temp\c\http_server\tower.h
+	<stdlib.h>
+	"sqlite3.h"
+
+1460803916 d:\temp\c\http_server\sqlite3.h
+	<stdarg.h>
+
+1464809121 source:d:\temp\c\http_server\sqliterud.c
+	"sqlite3.h"
+	"sqliteRUD.h"
+
+1461520005 d:\temp\c\http_server\sqliterud.h
+	<stdlib.h>
+
+1464810370 source:d:\temp\c\http_server\tower.c
+	<windows.h>
+	"tower.h"
+	"http.h"
+
+1460803917 source:d:\temp\c\http_server\sqlite3.c
+	<vxWorks.h>
+	<pthread.h>
+	"mingw.h"
+	"_mingw.h"
+	<stdarg.h>
+	"config.h"
+	<stdint.h>
+	<inttypes.h>
+	<intrin.h>
+	<cmnintrin.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<TargetConditionals.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	"windows.h"
+	<sys/cygwin.h>
+	<errno.h>
+	<process.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/ioctl.h>
+	<sys/file.h>
+	<sys/param.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	<tcl.h>
+	"sqlite3rtree.h"
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
+	<ctype.h>
+	<math.h>
+
+1463273858 source:d:\temp\c\lab4_5\file_win.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1463273858 source:d:\temp\c\lab4_5\http.c
+	<stdlib.h>
+	<stdio.h>
+	<stddef.h>
+	<string.h>
+	"http.h"
+
+1463273858 d:\temp\c\lab4_5\http.h
+
+1460803917 source:d:\temp\c\lab4_5\sqlite3.c
+	<vxWorks.h>
+	<pthread.h>
+	"mingw.h"
+	"_mingw.h"
+	<stdarg.h>
+	"config.h"
+	<stdint.h>
+	<inttypes.h>
+	<intrin.h>
+	<cmnintrin.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<TargetConditionals.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	"windows.h"
+	<sys/cygwin.h>
+	<errno.h>
+	<process.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/ioctl.h>
+	<sys/file.h>
+	<sys/param.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	<tcl.h>
+	"sqlite3rtree.h"
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
+	<ctype.h>
+	<math.h>
+
+1464809121 source:d:\temp\c\lab4_5\sqliterud.c
+	"sqlite3.h"
+	"sqliteRUD.h"
+
+1460803916 d:\temp\c\lab4_5\sqlite3.h
+	<stdarg.h>
+
+1461520005 d:\temp\c\lab4_5\sqliterud.h
+	<stdlib.h>
+
+1463273858 source:d:\temp\c\lab4_5\student.c
+	<stdlib.h>
+	<stdio.h>
+	"cJSON.h"
+	"student.h"
+
+1463273858 d:\temp\c\lab4_5\cjson.h
+
+1463273858 d:\temp\c\lab4_5\student.h
+
+1465136529 source:d:\temp\c\lab4_5\tower.c
+	<windows.h>
+	"tower.h"
+	"http.h"
+	"cJSON.h"
+
+1465136544 d:\temp\c\lab4_5\tower.h
+	<stdlib.h>
+	"sqlite3.h"
+
+1465141167 source:d:\temp\c\lab4_5\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stddef.h>
+	<signal.h>
+	"socket.h"
+	"file.h"
+	"http.h"
+	"io.h"
+	"tower.h"
+
+1463273858 d:\temp\c\lab4_5\socket.h
+
+1463273858 d:\temp\c\lab4_5\file.h
+
+1463273858 d:\temp\c\lab4_5\io.h
+
+1463273858 source:d:\prog\lab4_5\file_win.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1463273858 source:d:\prog\lab4_5\http.c
+	<stdlib.h>
+	<stdio.h>
+	<stddef.h>
+	<string.h>
+	"http.h"
+
+1463273858 d:\prog\lab4_5\http.h
+
+1465044022 source:d:\prog\lab4_5\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stddef.h>
+	<signal.h>
+	"socket.h"
+	"file.h"
+	"http.h"
+	"io.h"
+	"tower.h"
+
+1463273858 d:\prog\lab4_5\socket.h
+
+1463273858 d:\prog\lab4_5\file.h
+
+1463273858 d:\prog\lab4_5\io.h
+
+1465044870 d:\prog\lab4_5\tower.h
+	<stdlib.h>
+	"sqlite3.h"
+
+1460803916 d:\prog\lab4_5\sqlite3.h
+	<stdarg.h>
+
+1460803917 source:d:\prog\lab4_5\sqlite3.c
+	<vxWorks.h>
+	<pthread.h>
+	"mingw.h"
+	"_mingw.h"
+	<stdarg.h>
+	"config.h"
+	<stdint.h>
+	<inttypes.h>
+	<intrin.h>
+	<cmnintrin.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<TargetConditionals.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	"windows.h"
+	<sys/cygwin.h>
+	<errno.h>
+	<process.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/ioctl.h>
+	<sys/file.h>
+	<sys/param.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	<tcl.h>
+	"sqlite3rtree.h"
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
+	<ctype.h>
+	<math.h>
+
+1463273858 source:d:\prog\lab4_5\student.c
+	<stdlib.h>
+	<stdio.h>
+	"cJSON.h"
+	"student.h"
+
+1463273858 d:\prog\lab4_5\cjson.h
+
+1463273858 d:\prog\lab4_5\student.h
+
+1465045014 source:d:\prog\lab4_5\tower.c
+	<windows.h>
+	"tower.h"
+	"http.h"
+	"cJSON.h"
+
+1463273858 source:d:\prog\lab4_5\socket_win.c
+	<winsock2.h>
+	"socket.h"
+
+1463273858 source:d:\temp\c\lab4_5\socket_win.c
+	<winsock2.h>
+	"socket.h"
+
