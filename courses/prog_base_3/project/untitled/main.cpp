@@ -2,59 +2,49 @@
 #include <windows.h>
 #include "player.h"
 #include "map.h"
-struct heropos {
-int x;
-int y;
-};
+#include "view.h"
+
 using namespace sf;
 int main()
 {
+    int startX = 100;
+    int startY = 200;
+    float time = 0;
     RenderWindow window(VideoMode(1280, 1024), "some sheet");
-
-    Player player("seiryuu.png",100,400,96,96);
-    player.changespeed(1);
-
+    window.setVerticalSyncEnabled(true);
+    Map map("test","tiles.png",&window);
+    Character player(startX*2,startY*2,&map,&window,&time);
+    sf::Font font;
+    font.loadFromFile("text/arial.ttf");
+    player.debugInfo.setFont(font);
+    Camera cam(0,0,300,300);
     Clock clock;
 
-    Map map("test","tiles.png",window);
+
 
     while (window.isOpen())
     {
-        float time = clock.getElapsedTime().asMicroseconds();
+        time = clock.getElapsedTime().asMicroseconds();
         clock.restart();
-        time = time/320;
+        time = time/160;
         Event event;
         while (window.pollEvent(event))
         {
             if (event.type == Event::Closed)
                 window.close();
         }
-        if(Keyboard::isKeyPressed(Keyboard::Left)||Keyboard::isKeyPressed(Keyboard::A)) {
-            player.changedir(GO_LEFT);
-            }
-        if(Keyboard::isKeyPressed(Keyboard::Right)||Keyboard::isKeyPressed(Keyboard::D)) {
-            player.changedir(GO_RIGHT);
-           }
-        if(Keyboard::isKeyPressed(Keyboard::Up)||Keyboard::isKeyPressed(Keyboard::W)) {
-            player.changedir(GO_UP);
-            }
-        if(Keyboard::isKeyPressed(Keyboard::Down)||Keyboard::isKeyPressed(Keyboard::S)) {
-            player.changedir(GO_DOWN);
-        }
 
-        player.update(time);
-
-        player.changedir(IDLE);
-
-        window.clear();
+        window.clear(Color(86,50,68));
         map.update();
-        window.draw(player.sprite);
+        player.update();
+        cam.setPos(player.getX(),player.getY());
+        player.debugInfo.setPosition(cam.getPos().x-200,cam.getPos().y-200);
+        window.setView(cam.getView());
+        window.draw(player.debugInfo);
         window.display();
-
-
-}
+    }
 
     return 0;
 
-    }
+    };
 

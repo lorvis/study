@@ -1,94 +1,47 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include <SFML/Graphics.hpp>
-#include <windows.h>
+#include <fstream>
+#include <iostream>
 #include "map.h"
+#define PLAYER_SIZE 96
 
 using namespace sf;
 
-enum directories {IDLE=-1,GO_UP,GO_LEFT,GO_DOWN,GO_RIGHT};
+enum status {IDLE=0,REFLEXIVE=1,JUMP=2,BACKWARD=4,COACH=8,FORWARD=16,CLIMBABLE=32,STOPPED=64};
+enum dir {NODIR=0,UP=2,LEFT=4,DOWN=8,RIGHT=16,SPIN=32,STAND=64};
 
-class Player
+class Character
 {
-    float x, y, w, h, dx, dy,speed = 0;
-    String imgname;
-    Image image;
-    Texture texture;
-    int dir=0;
-    public:
+    bool isSpinning = false;
+    float * time;
+    float x;
+    float y;
+    float speed = 1;
+    float dx = 0;
+    float dy = 0;
     float currentFrame = 0;
-    Sprite sprite;
-    Player(String imgname,int X, int Y, int W, int H){
-        this->imgname = imgname;
-        w = W, h = H;
-        image.loadFromFile("images/"+imgname);
-        texture.loadFromImage(image);
-        sprite.setTexture(texture);
-        sprite.setTextureRect(IntRect(0,0,w,h));
-        x = X, y =Y;
-
-    }
-
-    void changespeed(int speed){
-        this->speed = speed;
-    }
-
-    void changedir(int dir){
-        this->dir = dir;
-    }
-
-    void update(float time){
-
-        if(dir>=0&&dir<4){
-
-            currentFrame+=0.005*time;
-
-            switch(dir){
-
-
-
-                case GO_UP:
-                    sprite.move(0,-0.1*time);
-                    sprite.setTextureRect(IntRect(w*((int)currentFrame%3),h*3,w,h));
-                    dx = 0;
-                    dy = -speed;
-                    break;
-                case GO_LEFT:
-                    sprite.move(-0.1*time,0);
-                    sprite.setTextureRect(IntRect(w*((int)currentFrame),h,w,h));
-                    dx = -speed;
-                    dy = 0;
-                    break;
-                case GO_DOWN:
-                    sprite.move(0,0.1*time);
-                    sprite.setTextureRect(IntRect(w*((int)currentFrame),0,w,h));
-                    dx = 0;
-                    dy = speed;
-                    break;
-                case GO_RIGHT:
-                    sprite.move(0.1*time,0);
-                    sprite.setTextureRect(IntRect(w*((int)currentFrame),h*2,w,h));
-                    dx = speed;
-                    dy =0;
-                    break;
-                default:
-                    changespeed(0);
-                    break;
-                    }
-                        }
-
-        else
-            changespeed(0);
-
-
-        x+=dx*time;
-        y+=dy*time;
-
-        speed=0;
-
-        if(currentFrame>=3)
-            currentFrame-=3;
-    }
+    char debugText[200];
+    Map * area;
+    RenderWindow * window;
+    Image pImage;
+    Texture pTexture;
+    Sprite pSprite;
+    char status = IDLE;
+    char curDir = NODIR;
+    char checkTileAtP(char dir, int tile);
+    void checkDir();
+    void enspeed();
+    void checkstatus();
+    void updateFrame(char dir);
+    void updateFrame();
+public:
+    Text debugInfo;
+    Character(float startX, float startY, Map * pMap, RenderWindow * pWindow, float * time);
+    float getX();
+    float getY();
+    void update();
 };
 
 #endif // PLAYER_H

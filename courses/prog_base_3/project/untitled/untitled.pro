@@ -4,7 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    player.cpp
+    player.cpp \
+    map.cpp \
+    view.cpp
 
 LIBS += -LC:\SFML-2.3.2\lib\
 
@@ -16,4 +18,5 @@ DEPENDPATH += C:\SFML-2.3.2\include\
 
 HEADERS += \
     player.h \
-    map.h
+    map.h \
+    view.h
