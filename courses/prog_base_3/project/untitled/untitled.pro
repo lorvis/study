@@ -4,9 +4,12 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    player.cpp \
     map.cpp \
-    view.cpp
+    view.cpp \
+    npc.cpp \
+    character.cpp \
+    projectile.cpp \
+    projectilelist.cpp
 
 LIBS += -LC:\SFML-2.3.2\lib\
 
@@ -17,6 +20,9 @@ INCLUDEPATH += C:\SFML-2.3.2\include\
 DEPENDPATH += C:\SFML-2.3.2\include\
 
 HEADERS += \
-    player.h \
     map.h \
-    view.h
+    view.h \
+    projectile.h \
+    npc.h \
+    character.h \
+    projectilelist.h

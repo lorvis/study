@@ -54,7 +54,7 @@
              }
          }
 
-
+        mapfile.close();
     }
 
    void Map::update(){
