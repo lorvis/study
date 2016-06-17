@@ -1,20 +1,22 @@
 #include "projectile.h"
 #include "character.h"
 #include "math.h"
-Projectile::Projectile(Character * player, float x, float y, float xSpeed, float ySpeed, int type, float * time){
-    this->player = player;
+Projectile::Projectile(float energy, sf::RenderWindow * window, float x, float y, float xSpeed, float ySpeed, int type, float * time, int id, sf::Texture * projTexture){
+    this->energy = energy;
     this->x = x;
     this->y = y;
     this->xSpeed = xSpeed;
     this->ySpeed = ySpeed;
     this->type = type;
     this->time = time;
-    sf::Image image;
-    image.loadFromFile("images/Projectile.png");
-    sf::Texture texture;
-    texture.loadFromImage(image);
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
+    this->id = id;
+    projSprite.setTexture(*projTexture);
+    this->window = window;
+#ifdef PROJ_DEBUG
+    debugInfo.setColor(Color(255,0,0));
+    debugInfo.setCharacterSize(12);
+    debugInfo.setStyle(sf::Text::Regular);
+#endif
 }
 
 float Projectile::getX(){
@@ -31,36 +33,53 @@ ySpeed+=yAccel;
 }
 
 void Projectile::updateFrame(){
-currentFrame += *time*0.03;
+currentFrame += *time*0.003;
 if(currentFrame >=3)
     currentFrame -= 3;
 projSprite.setTextureRect(IntRect((int)currentFrame*PROJ_WIDTH,0,PROJ_WIDTH,PROJ_HEIGHT));
 if(xSpeed > 0)
 projSprite.setScale(-1,1);
 projSprite.setPosition(Vector2f(x+dx,y+dy));
+window->draw(projSprite);
 projSprite.setScale(1,1);
 }
 
 void Projectile::update(){
     dx = 0;
     dy = 0;
-    if(abs(xSpeed - (xSpeed/fabs(xSpeed)*0.00002*(*time)))<0.001)
-        xSpeed = 0.001;
-    if(abs(xSpeed - (xSpeed/fabs(xSpeed)*0.00002*(*time)))>0.001)
-        xSpeed = xSpeed - (xSpeed/fabs(xSpeed)*0.00002*(*time));
-    if(abs(ySpeed - (ySpeed/fabs(ySpeed)*0.00002*(*time)))<0.001)
-        ySpeed = 0.001;
-    if(abs(ySpeed - (ySpeed/fabs(ySpeed)*0.00002*(*time)))>0.001)
-        ySpeed = ySpeed - (ySpeed/fabs(ySpeed)*0.00002*(*time));
-    dx = xSpeed;
-    dy = ySpeed;
+    if(std::abs(xSpeed) > 0.8)
+        xSpeed -= 0.00002*(*time)*(xSpeed/std::abs(xSpeed))*abs(xSpeed)*energy;
+    if(std::abs(ySpeed) > 0.8)
+        ySpeed -= 0.00002*(*time)*(ySpeed/std::abs(ySpeed))*energy;
+    dx = xSpeed*energy;
+    dy = ySpeed*energy;
     updateFrame();
     x+= dx;
     y+= dy;
+#ifdef PROJ_DEBUG
+    char debugData[200];
+    sprintf(debugData,"\nCoord:[%.2f,%.2f]\n"
+                      "TileCoord:[%i,%i]\n"
+                      "dx = %f\n"
+                      "dy = %f\n"
+                      "xSpeed = %f\n"
+                      "ySpeed = %f\n"
+                        ,x,y,(int)x/32,(int)y/32,dx,dy,xSpeed,ySpeed
+                        );
+    sf::String median = std::string(debugData);
+    debugInfo.setString(median);
+    debugInfo.setPosition(Vector2f(x-100,y-100));
+    window->draw(debugInfo);
+#endif
 }
 
-//bool Projectile::isHit(){
-//if(!(type & LASER)) {
-//    if(type)
-//}
-//}
+int Projectile::getID(){
+    return id;
+}
+
+bool Projectile::isThere(float x, float y, float width, float height){
+    if(this->x > x && this->y > y && this->x < x+width && this->y < y+height)
+        return true;
+    else
+        return false;
+}

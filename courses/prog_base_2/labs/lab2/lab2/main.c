@@ -3,7 +3,7 @@
 #include "queue_t.h"
 
 #define QUEUE_HEAD_ID 0
-#define QUEUE_SIZE 20
+#define QUEUE_SIZE 4
 #define NUMBER_RANGE 200
 
 typedef int (*check_f)(queue_t *);

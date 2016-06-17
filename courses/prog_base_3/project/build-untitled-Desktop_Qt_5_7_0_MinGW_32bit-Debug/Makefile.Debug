@@ -48,24 +48,28 @@ SOURCES       = ..\untitled\main.cpp \
 		..\untitled\view.cpp \
 		..\untitled\npc.cpp \
 		..\untitled\character.cpp \
-		..\untitled\projectile.cpp 
+		..\untitled\projectile.cpp \
+		..\untitled\projectilelist.cpp 
 OBJECTS       = debug/main.o \
 		debug/map.o \
 		debug/view.o \
 		debug/npc.o \
 		debug/character.o \
-		debug/projectile.o
+		debug/projectile.o \
+		debug/projectilelist.o
 
 DIST          =  map.h \
 		view.h \
 		projectile.h \
 		npc.h \
-		character.h ..\untitled\main.cpp \
+		character.h \
+		projectilelist.h ..\untitled\main.cpp \
 		..\untitled\map.cpp \
 		..\untitled\view.cpp \
 		..\untitled\npc.cpp \
 		..\untitled\character.cpp \
-		..\untitled\projectile.cpp
+		..\untitled\projectile.cpp \
+		..\untitled\projectilelist.cpp
 QMAKE_TARGET  = untitled
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = untitled.exe
@@ -88,7 +92,7 @@ dist:
 	$(ZIP) untitled.zip $(SOURCES) $(DIST) ..\untitled\untitled.pro ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\spec_pre.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\qdevice.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\device_config.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\common\angle.conf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\qconfig.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3drender.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_axbase.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_axserver.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_clucene_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_core.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_core_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_dbus.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_designer.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_gui.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_help.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_help_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_location.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_location_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_network.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_network_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_nfc.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_opengl.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_positioning.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_qml.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_quick.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_sensors.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_serialport.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_sql.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_svg.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_testlib.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_uitools.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_websockets.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_widgets.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_winextras.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_xml.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\qt_functions.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\qt_config.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\win32\qt_config.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\win32-g++\qmake.conf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\exclusive_builds.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\default_pre.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\win32\default_pre.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\resolve_config.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\exclusive_builds_post.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\default_post.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\build_pass.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\win32\console.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\qml_debug.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\win32\rtti.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\precompile_header.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\warn_on.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\file_copies.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\testcase_targets.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\exceptions.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\yacc.prf ..\..\..\Install\Prog\QT\5.7\mingw53_32\mkspecs\features\lex.prf ..\untitled\untitled.pro  NO_PCH_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.o debug\map.o debug\view.o debug\npc.o debug\character.o debug\projectile.o
+	-$(DEL_FILE) debug\main.o debug\map.o debug\view.o debug\npc.o debug\character.o debug\projectile.o debug\projectilelist.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -184,7 +188,10 @@ debug/main.o: ../untitled/main.cpp C:/SFML-2.3.2/include/SFML/Graphics.hpp \
 		C:/SFML-2.3.2/include/SFML/Graphics/Text.hpp \
 		../untitled/character.h \
 		../untitled/map.h \
-		../untitled/view.h
+		../untitled/view.h \
+		../untitled/npc.h \
+		../untitled/projectile.h \
+		../untitled/projectilelist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\untitled\main.cpp
 
 debug/map.o: ../untitled/map.cpp ../untitled/map.h \
@@ -402,7 +409,9 @@ debug/npc.o: ../untitled/npc.cpp ../untitled/npc.h \
 		C:/SFML-2.3.2/include/SFML/Graphics/Shader.hpp \
 		C:/SFML-2.3.2/include/SFML/Graphics/Sprite.hpp \
 		C:/SFML-2.3.2/include/SFML/Graphics/Text.hpp \
-		../untitled/map.h
+		../untitled/map.h \
+		../untitled/projectile.h \
+		../untitled/projectilelist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\npc.o ..\untitled\npc.cpp
 
 debug/character.o: ../untitled/character.cpp ../untitled/character.h \
@@ -479,6 +488,7 @@ debug/character.o: ../untitled/character.cpp ../untitled/character.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\character.o ..\untitled\character.cpp
 
 debug/projectile.o: ../untitled/projectile.cpp ../untitled/projectile.h \
+		../untitled/projectilelist.h \
 		../untitled/character.h \
 		C:/SFML-2.3.2/include/SFML/Graphics.hpp \
 		C:/SFML-2.3.2/include/SFML/Window.hpp \
@@ -551,6 +561,81 @@ debug/projectile.o: ../untitled/projectile.cpp ../untitled/projectile.h \
 		C:/SFML-2.3.2/include/SFML/Graphics/Text.hpp \
 		../untitled/map.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\projectile.o ..\untitled\projectile.cpp
+
+debug/projectilelist.o: ../untitled/projectilelist.cpp ../untitled/projectilelist.h \
+		../untitled/projectile.h \
+		../untitled/character.h \
+		C:/SFML-2.3.2/include/SFML/Graphics.hpp \
+		C:/SFML-2.3.2/include/SFML/Window.hpp \
+		C:/SFML-2.3.2/include/SFML/System.hpp \
+		C:/SFML-2.3.2/include/SFML/Config.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Clock.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Export.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Time.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Err.hpp \
+		C:/SFML-2.3.2/include/SFML/System/FileInputStream.hpp \
+		C:/SFML-2.3.2/include/SFML/System/InputStream.hpp \
+		C:/SFML-2.3.2/include/SFML/System/NonCopyable.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Lock.hpp \
+		C:/SFML-2.3.2/include/SFML/System/MemoryInputStream.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Mutex.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Sleep.hpp \
+		C:/SFML-2.3.2/include/SFML/System/String.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Utf.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Utf.inl \
+		C:/SFML-2.3.2/include/SFML/System/String.inl \
+		C:/SFML-2.3.2/include/SFML/System/Thread.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Thread.inl \
+		C:/SFML-2.3.2/include/SFML/System/ThreadLocal.hpp \
+		C:/SFML-2.3.2/include/SFML/System/ThreadLocalPtr.hpp \
+		C:/SFML-2.3.2/include/SFML/System/ThreadLocalPtr.inl \
+		C:/SFML-2.3.2/include/SFML/System/Vector2.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Vector2.inl \
+		C:/SFML-2.3.2/include/SFML/System/Vector3.hpp \
+		C:/SFML-2.3.2/include/SFML/System/Vector3.inl \
+		C:/SFML-2.3.2/include/SFML/Window/Context.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/Export.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/GlResource.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/ContextSettings.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/Event.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/Joystick.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/Keyboard.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/Mouse.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/Sensor.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/Touch.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/VideoMode.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/Window.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/WindowHandle.hpp \
+		C:/SFML-2.3.2/include/SFML/Window/WindowStyle.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/BlendMode.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Export.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/CircleShape.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Shape.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Drawable.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/RenderStates.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Transform.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Rect.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Rect.inl \
+		C:/SFML-2.3.2/include/SFML/Graphics/Transformable.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/VertexArray.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Vertex.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Color.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/PrimitiveType.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/ConvexShape.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Font.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Glyph.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Texture.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Image.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/RectangleShape.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/RenderTarget.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/View.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/RenderTexture.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/RenderWindow.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Shader.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Sprite.hpp \
+		C:/SFML-2.3.2/include/SFML/Graphics/Text.hpp \
+		../untitled/map.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\projectilelist.o ..\untitled\projectilelist.cpp
 
 ####### Install
 

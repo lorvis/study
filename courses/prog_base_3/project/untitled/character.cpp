@@ -2,18 +2,24 @@
 #include <math.h>
 #include <string.h>
 #define PI 3.141592653589793
+#define CHAR_DEBUG
 
-Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, char * imageName)
+Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, char * imageName, ProjectileList *allProj)
 {
     std::string imagePath = "images/";
     imagePath+=imageName;
     cImage.loadFromFile(imagePath.c_str());
     cTexture.loadFromImage(cImage);
     cSprite.setTexture(cTexture);
+    specialAnimCounter = 0;
     this->x = x;
     this->y = y;
-    y = 100;
-    dx = 0;
+    energy = 0;
+    heat = 0;
+    currentFrame = 0;
+    speed = 1;
+    pList = allProj;
+    dx =0;
     dy =0;
     status = IDLE;
     area = pMap;
@@ -165,6 +171,22 @@ void Character::checkstatus() {
         }
     if(Keyboard::isKeyPressed(Keyboard::Down)||Keyboard::isKeyPressed(Keyboard::S)) {
         status |= COACH;
+    }
+    if(Keyboard::isKeyPressed(Keyboard::Z)||Keyboard::isKeyPressed(Keyboard::O)) {
+        status ^= ABSORBING;
+    }
+    if(status & ABSORBING)
+        strcat(debugText,"Status : Absorbing\n");
+    else
+    {
+
+        if(Keyboard::isKeyPressed(Keyboard::Space)||Keyboard::isKeyPressed(Keyboard::LShift))
+        {
+            strcat(debugText,"Status : shooting\n");
+            shoot((int)energy%101,(curDir & LEFT),ENERGYBLAST);
+        }
+            else
+            strcat(debugText,"Status : taking damage\n");
     }
 }
 
@@ -389,12 +411,13 @@ y+=dy;
 char debugData[200];
 sprintf(debugData,"Coord:[%.2f,%.2f]\n"
                   "TileCoord:[%i,%i]\n"
+                  "ENERGY = %f\n"
                   "dx = %f\n"
                   "dy = %f\n"
                   "|%c %c %c|\n"
                   "|%c %c %c|\n"
                   "|%c %c %c|\n"
-                    ,x,y,(int)x/32,(int)y/32,dx,dy,
+                    ,x,y,(int)x/32,(int)y/32,energy,dx,dy,
                     area->tileTypeXY(x,y),area->tileTypeXY(x+TILE_SIZE,y),area->tileTypeXY(x+TILE_SIZE*2,y),
                     area->tileTypeXY(x,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE),
                     area->tileTypeXY(x,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE*2+1)
@@ -405,4 +428,12 @@ debugInfo.setString(median);
 debugInfo.setPosition(Vector2f(x-100,y-100));
 #endif
 window->draw(debugInfo);
+}
+
+void Character::shoot(float power, bool toLeft, char type){
+    if(heat == 0 && power > 0 && power <= energy){
+    pList->add(power,x+TILE_SIZE*2+16-pow(TILE_SIZE,(float)toLeft)*2,y+TILE_SIZE+16,0.18*pow((-1),(float)toLeft),0,type);
+energy -= power;
+heat += power;
+    }
 }
