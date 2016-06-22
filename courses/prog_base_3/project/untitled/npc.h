@@ -17,6 +17,7 @@ class NPC : public Character
     float xLogicAnchor;
     float *xLogicTarget;
     void updateLogic();
+    bool checkForWall(float x1, float x2, float y1, float y2, int precision);
 public:
     NPC(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, char * imageName, ProjectileList * allProj, char cType , Character * player) : Character(pMap,pWindow,time,x,y,imageName,allProj){
         type = cType;
@@ -33,5 +34,7 @@ public:
      void updateFrame();
      void checkstatus();
      void enspeed();
+     void jump();
+     void targetPlayer();
 };
 #endif // NPC_H

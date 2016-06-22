@@ -9,7 +9,9 @@ SOURCES += main.cpp \
     npc.cpp \
     character.cpp \
     projectile.cpp \
-    projectilelist.cpp
+    projectilelist.cpp \
+    effect.cpp \
+    effectlist.cpp
 
 LIBS += -LC:\SFML-2.3.2\lib\
 
@@ -25,4 +27,6 @@ HEADERS += \
     projectile.h \
     npc.h \
     character.h \
-    projectilelist.h
+    projectilelist.h \
+    effect.h \
+    effectlist.h

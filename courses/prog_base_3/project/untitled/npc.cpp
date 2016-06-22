@@ -1,6 +1,7 @@
 #include "npc.h"
 #include "character.h"
 #include <string.h>
+#include <limits>
 
 void NPC::update(){
     sprintf(debugText,"");
@@ -20,7 +21,7 @@ void NPC::update(){
     x+=dx;
     y+=dy;
 #ifdef CHAR_DEBUG
-    char debugData[500];
+    char debugData[600];
     sprintf(debugData,"\nCoord:[%.2f,%.2f]\n"
                       "TileCoord:[%i,%i]\n"
                       "ENERGY = %f\n"
@@ -213,6 +214,10 @@ void NPC::checkstatus(){
         status = JUMP;
         jumpSpeed += 0.0004*(*time);
     }
+    if(jumpSpeed < -1)
+    {
+        jumpSpeed =-1;
+    }
 
     if(jumpSpeed > 0)
         jumpSpeed = 0;
@@ -221,30 +226,42 @@ void NPC::checkstatus(){
 
 }
 
+bool NPC::checkForWall(float x1, float x2, float y1, float y2, int precision){
+    if(!(x1 >= 0 && x2 >=0 && y1 >=0 && y2 >=0))
+        return true;
+    if(x1 == x2 && y1 == y2)
+        return area->tileTypeXY(x1,y2)!='_';
+    int xIter;
+    int yIter;
+    if(x2-x1 >=0)
+        xIter = 1;
+    else
+        xIter = -1;
+    if(y2-y1 >=0)
+        yIter = 1;
+    else
+        yIter = -1;
+    float curX = x1;
+    float curY = y1;
+    while(std::abs(x1-x2) >= std::abs(x1-curX) && std::abs(y1-y2) >= std::abs(y1-curY)){
+        if(area->tileTypeXY(curX,curY)!='_')
+            return true;
+        curX += xIter*std::abs(x1-x2)/precision;
+        curY += yIter*std::abs(y1-y2)/precision;
+    }
+    return false;
+}
+
 void NPC::updateLogic(){
     strcat(debugText,"LOGIC:\n");
     if(status & SHOOTING)
         status ^= SHOOTING;
     logicAction = AI_IDLE;
 if(type == SOLDIER){
-    if(std::abs(y-player->y)<=32 && ((player->x-x < 0 && (curDir & LEFT)) || (player->x-x > 0 && (curDir & RIGHT))) ){
-        bool wallPresence = false;
-        float curX = x;
-        while(std::abs(curX-x)<std::abs(player->x-x)){
-            if(area->tileTypeXY(curX,y+TILE_SIZE)!='_'){
-                wallPresence = true;
-                break;
-            }
-            else
-            curX+=2*(player->x-x)/std::abs(player->x-x);
-        }
-        if(!wallPresence){
-            strcat(debugText,"Player detected -> ");
-            isTargetDetected = true;
-            if(*xLogicTarget!=player->x){
-            delete xLogicTarget;
-            xLogicTarget = &player->x;
-            }
+    if(std::abs(y-player->y)<=96 && ((player->x-x < 0 && (curDir & LEFT)) || (player->x-x > 0 && (curDir & RIGHT))) ){
+        bool wallPresence = checkForWall(x,player->x,y+TILE_SIZE+6,y+TILE_SIZE+6,200);
+        if(!wallPresence && std::abs(y-player->y)<=32){
+            targetPlayer();
             if(energy > 25 && heat == 0){
                 strcat(debugText,"Shooting");
                 specialAnimCounter = 3;
@@ -252,6 +269,20 @@ if(type == SOLDIER){
                 shoot((int)energy%101,(x-player->x > 0),ENERGYBLAST);
             }
             strcat(debugText,"|\n");
+        }
+        else
+        {
+            wallPresence = checkForWall(x,player->x,y+16,y+16,200) && checkForWall(x,player->x,y-16,y-16,200);
+            if(!wallPresence){
+                targetPlayer();
+                jump();
+                if(energy > 25 && heat == 0){
+                    strcat(debugText,"Shooting");
+                    specialAnimCounter = 3;
+                    status |= SHOOTING;
+                    shoot((int)energy%101,(x-player->x > 0),ENERGYBLAST);
+                }
+            }
         }
     }
     else {
@@ -276,16 +307,31 @@ if(type == SOLDIER){
            strcat(debugText,"|\n");
            if(logicAction & AI_RIGHT)
                if(((area->tileTypeXY(x+PLAYER_SIZE+16+dx,y+TILE_SIZE*2+16)!='_') || (area->tileTypeXY(x+PLAYER_SIZE+16+dx,y+TILE_SIZE+16)!='_')) && jumpSpeed >= 0){
-                   jumpSpeed = -1;
-                   logicAction |= AI_JUMP;
+                jump();
                }
            if(logicAction & AI_LEFT)
                if(((area->tileTypeXY(x-16+dx,y+TILE_SIZE*2+16)!='_') || (area->tileTypeXY(x-16+dx,y+TILE_SIZE+16)!='_')) && jumpSpeed >= 0){
-                   jumpSpeed = -1;
-                   logicAction |= AI_JUMP;
+                jump();
                }
+
         }
+    }
+                }
+}
+
+void NPC::jump(){
+    if(jumpSpeed == 0 && dy ==0)
+    jumpSpeed = -1;
+    logicAction |= AI_JUMP;
+}
+
+void NPC::targetPlayer(){
+    strcat(debugText,"Player detected -> ");
+    isTargetDetected = true;
+    if(*xLogicTarget!=player->x){
+    delete xLogicTarget;
+    xLogicTarget = &player->x;
     }
 }
 
-}
+

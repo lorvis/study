@@ -1,6 +1,7 @@
 #include "projectile.h"
 #include "character.h"
 #include "math.h"
+#include "effect.h"
 Projectile::Projectile(float energy, sf::RenderWindow * window, float x, float y, float xSpeed, float ySpeed, int type, float * time, int id, sf::Texture * projTexture){
     this->energy = energy;
     this->x = x;
@@ -45,8 +46,6 @@ projSprite.setScale(1,1);
 }
 
 void Projectile::update(){
-    dx = 0;
-    dy = 0;
     if(std::abs(xSpeed) > 0.8)
         xSpeed -= 0.00002*(*time)*(xSpeed/std::abs(xSpeed))*abs(xSpeed)*energy;
     if(std::abs(ySpeed) > 0.8)
@@ -82,4 +81,20 @@ bool Projectile::isThere(float x, float y, float width, float height){
         return true;
     else
         return false;
+}
+
+char Projectile::getDir(){
+    if(std::abs(dx) > std::abs(dy)){
+        if(dx > 0)
+            return ERIGHT;
+        else
+            return ELEFT;
+    }
+    else if (std::abs(xSpeed) < std::abs(ySpeed)) {
+        if(dy > 0)
+            return EDOWN;
+        else
+            return EUP;
+    }
+    else return NODIR;
 }

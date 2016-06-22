@@ -408,7 +408,7 @@ updateFrame();
 x+=dx;
 y+=dy;
 #ifdef CHAR_DEBUG
-char debugData[200];
+char debugData[400];
 sprintf(debugData,"Coord:[%.2f,%.2f]\n"
                   "TileCoord:[%i,%i]\n"
                   "ENERGY = %f\n"
@@ -422,8 +422,7 @@ sprintf(debugData,"Coord:[%.2f,%.2f]\n"
                     area->tileTypeXY(x,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE),
                     area->tileTypeXY(x,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE*2+1)
                     );
-strcat(debugText,debugData);
-sf::String median = debugText;
+sf::String median = debugData;
 debugInfo.setString(median);
 debugInfo.setPosition(Vector2f(x-100,y-100));
 #endif
@@ -432,7 +431,7 @@ window->draw(debugInfo);
 
 void Character::shoot(float power, bool toLeft, char type){
     if(heat == 0 && power > 0 && power <= energy){
-    pList->add(power,x+TILE_SIZE*2+16-pow(TILE_SIZE,(float)toLeft)*2,y+TILE_SIZE+16,0.18*pow((-1),(float)toLeft),0,type);
+    pList->add(power,x+TILE_SIZE*2+6-pow(TILE_SIZE,(float)toLeft)*2,y+TILE_SIZE+6,0.18*pow((-1),(float)toLeft),0,type);
 energy -= power;
 heat += power;
     }

@@ -28,8 +28,7 @@ protected:
     float speed;
     float energy;
     float currentFrame;
-    char debugText[200];
-    Map * area;
+    char debugText[700];
     RenderWindow * window;
     Image cImage;
     Texture cTexture;
@@ -42,6 +41,7 @@ protected:
     virtual bool collision();
     void shoot(float power, bool toLeft, char type);
 public:
+    Map * area;
     Text debugInfo;
     Character(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, char * imageName, ProjectileList * allProj);
     float x = 100;

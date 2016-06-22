@@ -5,7 +5,8 @@
 #include "map.h"
 #include "view.h"
 #include "npc.h"
-#include "projectile.h"
+#include "projectilelist.h"
+#include "effectlist.h"
 
 using namespace sf;
 
@@ -15,17 +16,14 @@ void gameShutDown(Character * player);
 
 int main()
 {
+    static char mainDebugText[1000] = " ";
     float time = 0;
     RenderWindow window(VideoMode(1280, 1024), "some sheet");
     window.setVerticalSyncEnabled(true);
 
     Map map("test","tiles.png",&window);
-    sf::Image projImage;
-    projImage.loadFromFile("images/Projectile.png");
-    sf::Texture projTexure;
-    projTexure.loadFromImage(projImage);
-    ProjectileList projectiles(&window,&time,&projTexure);
-
+    EffectList effects(&window,&time);
+    ProjectileList projectiles(&window,&time,&map,&effects);
     Character player(&map,&window,&time,200,100,(char *)"pSprite2.png",&projectiles);
     Character * enemy;
     NPC newEnemy(&map,&window,&time,300,100,(char *)"EnemySoldier.png",&projectiles,SOLDIER,&player);
@@ -64,9 +62,11 @@ int main()
         player.update();
         enemy->update();
         projectiles.updateList();
+        effects.update();
         cam.setPos(player.getX(),player.getY());
         window.setView(cam.getView());
         window.display();
+        Event.
     }
 
     return 0;

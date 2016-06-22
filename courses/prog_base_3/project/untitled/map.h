@@ -5,6 +5,11 @@
 #include <iostream>
 #define TILE_SIZE 32
 
+struct xyPVector {
+    float * x;
+    float * y;
+};
+
 class Map{
 
     sf::String layer;

@@ -1,6 +1,7 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 #include <SFML/Graphics.hpp>
+#include "effect.h"
 #define PROJ_WIDTH 50
 #define PROJ_HEIGHT 20
 #define PROJ_DEBUG
@@ -30,6 +31,7 @@ public:
     float getX();
     float getY();
     int getID();
+    char getDir();
     void (*hitEffect)(int energy);
     void update();
     void accelerate(float xAccel, float yAccel);
