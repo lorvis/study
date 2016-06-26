@@ -1,5 +1,6 @@
 #include "effect.h"
 #include "projectile.h"
+
 Effect::Effect(float x, float y, float * time, sf::RenderWindow * window, char type, char tarType, sf::Texture * eTexture, char dir, void * target)
 {
     if(target == NULL)

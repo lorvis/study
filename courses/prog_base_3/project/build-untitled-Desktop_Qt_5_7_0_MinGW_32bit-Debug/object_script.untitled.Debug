@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\map.o
+./debug\view.o
+./debug\npc.o
+./debug\character.o
+./debug\projectile.o
+./debug\projectilelist.o
+./debug\effect.o
+./debug\effectlist.o
+./debug\enemylist.o
+);

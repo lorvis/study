@@ -4,13 +4,13 @@
 #define PI 3.141592653589793
 #define CHAR_DEBUG
 
-Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, char * imageName, ProjectileList *allProj)
+#ifdef CHAR_DEBUG
+
+
+Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, Texture *cTexture, ProjectileList *allProj)
 {
-    std::string imagePath = "images/";
-    imagePath+=imageName;
-    cImage.loadFromFile(imagePath.c_str());
-    cTexture.loadFromImage(cImage);
-    cSprite.setTexture(cTexture);
+    type = PLAYER;
+    cSprite.setTexture(*cTexture);
     specialAnimCounter = 0;
     this->x = x;
     this->y = y;
@@ -28,6 +28,9 @@ Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, 
     debugInfo.setColor(Color(255,0,0));
     debugInfo.setCharacterSize(12);
     debugInfo.setStyle(sf::Text::Regular);
+    energyInfo.setColor(Color(40,40,255));
+    energyInfo.setCharacterSize(36);
+    energyInfo.setStyle(sf::Text::Regular);
     curDir = RIGHT | STAND;
 }
 
@@ -160,9 +163,19 @@ void Character::checkstatus() {
 
     status = IDLE;
 
+    if(heat > 0)
+        heat -= 0.05*(*time);
+    if(heat < 0)
+        heat = 0;
+
     if(Keyboard::isKeyPressed(Keyboard::Left)||Keyboard::isKeyPressed(Keyboard::A)) {
        status |= BACKWARD;
         }
+
+    if(Keyboard::isKeyPressed(Keyboard::Q)||Keyboard::isKeyPressed(Keyboard::E)) {
+      energy = 160;
+        }
+
     if(Keyboard::isKeyPressed(Keyboard::Right)||Keyboard::isKeyPressed(Keyboard::D)) {
         status |= FORWARD;
        }
@@ -183,7 +196,8 @@ void Character::checkstatus() {
         if(Keyboard::isKeyPressed(Keyboard::Space)||Keyboard::isKeyPressed(Keyboard::LShift))
         {
             strcat(debugText,"Status : shooting\n");
-            shoot((int)energy%101,(curDir & LEFT),ENERGYBLAST);
+            if(energy > 150)
+            shoot(150,(curDir & LEFT),ENERGYBLAST);
         }
             else
             strcat(debugText,"Status : taking damage\n");
@@ -252,33 +266,33 @@ bool Character::collision(){
     bool dyhalt = false;
     if(dx < 0) {
         for(int i = 0; i < PLAYER_SIZE/TILE_SIZE; i++){
-            if(area->tileTypeXY(x+dx,y+dy+TILE_SIZE*i)!='_')
+            if(area->tileTypeXY(x+dx-16,y+dy+TILE_SIZE*i)!='_')
             {
                 dxhalt = true;
                 dx = 0;
             }
         }
-        if(dxhalt == false && area->tileTypeXY(x+dx,y+dy+TILE_SIZE*3-4)!='_') {
+        if(dxhalt == false && area->tileTypeXY(x+dx,y+dy+PLAYER_SIZE-1)!='_') {
             dxhalt = true;
             dx = 0;
         }
     }
     if(dx > 0 && !dxhalt) {
         for(int i = 0; i < PLAYER_SIZE/TILE_SIZE; i++){
-            if(area->tileTypeXY(x+dx+TILE_SIZE*3,y+dy+TILE_SIZE*i)!='_')
+            if(area->tileTypeXY(x+dx+PLAYER_SIZE+16,y+dy+TILE_SIZE*i)!='_')
             {
                 dxhalt = true;
                 dx = 0;
             }
         }
-        if(dxhalt == false && area->tileTypeXY(x+dx+TILE_SIZE*3,y+dy+TILE_SIZE*3-4)!='_') {
+        if(dxhalt == false && area->tileTypeXY(x+dx+TILE_SIZE*3-1,y+dy+TILE_SIZE*3-1)!='_') {
             dxhalt = true;
             dx = 0;
         }
     }
     if(dy < 0) {
         for(int i = 0; i < PLAYER_SIZE/TILE_SIZE; i++){
-            if(area->tileTypeXY(x+dx+TILE_SIZE*i,y+dy)!='_')
+            if(area->tileTypeXY(x+dx+TILE_SIZE*i,y+dy-16)!='_')
             {
                 dyhalt = true;
                 dy = 0;
@@ -297,7 +311,7 @@ bool Character::collision(){
                 dy = 0;
             }
         }
-        if(dyhalt == false && area->tileTypeXY(x+dx+TILE_SIZE*3,y+dy)!='_') {
+        if(dyhalt == false && area->tileTypeXY(x+dx+TILE_SIZE*3,y+dy+TILE_SIZE*3)!='_') {
             dyhalt = true;
             dy = 0;
         }
@@ -407,17 +421,64 @@ checkDir();
 updateFrame();
 x+=dx;
 y+=dy;
-#ifdef CHAR_DEBUG
+checkForProj();
+showEnergy();
+debugChar();
+}
+
+void Character::shoot(float power, bool toLeft, char type){
+    char origin;
+    if(this->type == PLAYER)
+        origin = ORIGIN_PLAYER;
+    if(this->type == SOLDIER)
+        origin = ORIGIN_SOLDIER;
+    if(heat == 0 && power > 0 && power <= energy){
+    pList->add(power,x+TILE_SIZE*2+6-pow(TILE_SIZE,(float)toLeft)*2,y+TILE_SIZE+6,0.18*pow((-1),(float)toLeft),0,type,origin);
+energy -= power;
+heat += power;
+    }
+}
+
+void Character::die(){
+defeated = true;
+}
+
+void Character::absorb(int energy){
+    if(this->energy+energy <= 300 && (status & ABSORBING)){
+        this->energy+=energy;
+    }
+    else{
+        die();
+    }
+}
+
+bool Character::checkForProj(){
+    bool hit = false;
+    for(int i = 0; i < pList->pVector.size();i++){
+        if(pList->checkRect(i,ORIGIN_PLAYER,x+1,y+TILE_SIZE+1,x+PLAYER_SIZE,y+PLAYER_SIZE)){
+            Vector2i recievedP = pList->remove(i);
+            if(!(status & ABSORBING))
+                die();
+            else
+                absorb(recievedP.x);
+            hit = true;
+        }
+    }
+    return hit;
+}
+
+void Character::debugChar(){
 char debugData[400];
 sprintf(debugData,"Coord:[%.2f,%.2f]\n"
                   "TileCoord:[%i,%i]\n"
                   "ENERGY = %f\n"
+                  "HEAT = %f\n"
                   "dx = %f\n"
                   "dy = %f\n"
                   "|%c %c %c|\n"
                   "|%c %c %c|\n"
                   "|%c %c %c|\n"
-                    ,x,y,(int)x/32,(int)y/32,energy,dx,dy,
+                    ,x,y,(int)x/32,(int)y/32,energy,heat,dx,dy,
                     area->tileTypeXY(x,y),area->tileTypeXY(x+TILE_SIZE,y),area->tileTypeXY(x+TILE_SIZE*2,y),
                     area->tileTypeXY(x,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE),
                     area->tileTypeXY(x,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE*2+1)
@@ -425,14 +486,15 @@ sprintf(debugData,"Coord:[%.2f,%.2f]\n"
 sf::String median = debugData;
 debugInfo.setString(median);
 debugInfo.setPosition(Vector2f(x-100,y-100));
-#endif
 window->draw(debugInfo);
 }
+#endif
 
-void Character::shoot(float power, bool toLeft, char type){
-    if(heat == 0 && power > 0 && power <= energy){
-    pList->add(power,x+TILE_SIZE*2+6-pow(TILE_SIZE,(float)toLeft)*2,y+TILE_SIZE+6,0.18*pow((-1),(float)toLeft),0,type);
-energy -= power;
-heat += power;
-    }
+void Character::showEnergy(){
+    char energyText[30];
+    sprintf(energyText,"Energy:%.0f",energy);
+    energyInfo.setString(energyText);
+    energyInfo.setPosition(x-500,y+300);
+    window->draw(energyInfo);
 }
+

@@ -2,7 +2,7 @@
 #include "character.h"
 #include "math.h"
 #include "effect.h"
-Projectile::Projectile(float energy, sf::RenderWindow * window, float x, float y, float xSpeed, float ySpeed, int type, float * time, int id, sf::Texture * projTexture){
+Projectile::Projectile(float energy, sf::RenderWindow * window, float x, float y, float xSpeed, float ySpeed, int type, float * time, int id, sf::Texture * projTexture, char origin){
     this->energy = energy;
     this->x = x;
     this->y = y;
@@ -11,6 +11,7 @@ Projectile::Projectile(float energy, sf::RenderWindow * window, float x, float y
     this->type = type;
     this->time = time;
     this->id = id;
+    this->origin = origin;
     projSprite.setTexture(*projTexture);
     this->window = window;
 #ifdef PROJ_DEBUG
@@ -97,4 +98,12 @@ char Projectile::getDir(){
             return EUP;
     }
     else return NODIR;
+}
+
+float Projectile::getEnergy(){
+    return energy;
+}
+
+char Projectile::getOrigin(){
+    return origin;
 }

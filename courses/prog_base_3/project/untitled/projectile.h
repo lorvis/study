@@ -7,6 +7,7 @@
 #define PROJ_DEBUG
 
 enum projType {UNDEFINED = 0,ENERGYBLAST = 2, BULLETSHOT = 4, LASER = 8, PLAYERS = 16, ENEMYS = 32};
+enum projOrigin {ORIGIN_UNDEFINED = 0, ORIGIN_PLAYER = 2, ORIGIN_SOLDIER = 4};
 
 class Projectile {
     float xSpeed;
@@ -18,6 +19,7 @@ class Projectile {
     float energy;
     float currentFrame = 0;
     float * time;
+    char origin;
     int id;
     int type;
     void updateFrame();
@@ -27,11 +29,13 @@ public:
 #ifdef PROJ_DEBUG
     sf::Text debugInfo;
 #endif
-    Projectile(float energy, sf::RenderWindow * window, float x, float y, float xSpeed, float ySpeed, int type, float * time, int id, sf::Texture * projTexture);
+    Projectile(float energy, sf::RenderWindow * window, float x, float y, float xSpeed, float ySpeed, int type, float * time, int id, sf::Texture * projTexture, char origin);
     float getX();
     float getY();
     int getID();
     char getDir();
+    float getEnergy();
+    char getOrigin();
     void (*hitEffect)(int energy);
     void update();
     void accelerate(float xAccel, float yAccel);

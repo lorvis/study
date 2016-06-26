@@ -7,37 +7,44 @@
 #include "npc.h"
 #include "projectilelist.h"
 #include "effectlist.h"
+#include "enemylist.h"
 
 using namespace sf;
 
 bool gameStartUp(Character * player);
 void gameShutDown(Character * player);
 
+enum gameStatus { GS_NONE = 0, GS_NEWGAME = 2, GS_LOADED = 4, GS_WIN = 8, GS_DEFEAT = 16 };
 
 int main()
 {
-    static char mainDebugText[1000] = " ";
     float time = 0;
     RenderWindow window(VideoMode(1280, 1024), "some sheet");
     window.setVerticalSyncEnabled(true);
+    sf::Image pImg;
+    pImg.loadFromFile("images/pSprite2.png");
+    sf::Texture pTexture;
+    pTexture.loadFromImage(pImg);
 
     Map map("test","tiles.png",&window);
     EffectList effects(&window,&time);
     ProjectileList projectiles(&window,&time,&map,&effects);
-    Character player(&map,&window,&time,200,100,(char *)"pSprite2.png",&projectiles);
-    Character * enemy;
-    NPC newEnemy(&map,&window,&time,300,100,(char *)"EnemySoldier.png",&projectiles,SOLDIER,&player);
-        enemy = &newEnemy;
+    Character player(&map,&window,&time,200,100,&pTexture,&projectiles);
+    EnemyList enemies(&window,&map,&player,&projectiles,&time);
+    enemies.add(300,100,SOLDIER);
+    enemies.add(600,100,SOLDIER);
 
     gameStartUp(&player);
 
 #ifdef CHAR_DEBUG
-    sf::Font font;
-    font.loadFromFile("text/arial.ttf");
-    player.debugInfo.setFont(font);
-    newEnemy.debugInfo.setFont(font);
+    sf::Font dFont;
+    dFont.loadFromFile("text/arial.ttf");
+    player.debugInfo.setFont(dFont);
 #endif
 
+    sf::Font eFont;
+    player.energyInfo.setFont(eFont);
+    eFont.loadFromFile("text/biting my nails.ttf");
     Camera cam(0,0,1280,1024);
     Clock clock;
 //    NPC npcSample();
@@ -60,13 +67,16 @@ int main()
         window.clear(Color(20,20,20));
         map.update();
         player.update();
-        enemy->update();
+        enemies.update(enemies);
         projectiles.updateList();
         effects.update();
         cam.setPos(player.getX(),player.getY());
         window.setView(cam.getView());
         window.display();
-        Event.
+        if(player.defeated || enemies.allDefeated) {
+            gameShutDown(&player);
+            window.close();
+        }
     }
 
     return 0;

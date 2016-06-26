@@ -11,15 +11,16 @@ SOURCES += main.cpp \
     projectile.cpp \
     projectilelist.cpp \
     effect.cpp \
-    effectlist.cpp
+    effectlist.cpp \
+    enemylist.cpp
 
-LIBS += -LC:\SFML-2.3.2\lib\
+LIBS += -L $$PWD\libs\
 
-CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system
-CONFIG(debug, debug|release): LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-main-d -lsfml-network-d -lsfml-window-d -lsfml-system-d
+CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system -lsqlite3
+CONFIG(debug, debug|release): LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-main-d -lsfml-network-d -lsfml-window-d -lsfml-system-d -lsqlite3
 
-INCLUDEPATH += C:\SFML-2.3.2\include\
-DEPENDPATH += C:\SFML-2.3.2\include\
+INCLUDEPATH += $$PWD\include\
+DEPENDPATH += $$PWD\include\
 
 HEADERS += \
     map.h \
@@ -29,4 +30,14 @@ HEADERS += \
     character.h \
     projectilelist.h \
     effect.h \
-    effectlist.h
+    effectlist.h \
+    enemylist.h \
+    sqlite3.h \
+    include/Backup.h \
+    include/Column.h \
+    include/Database.h \
+    include/Exception.h \
+    include/SQLiteCpp.h \
+    include/Statement.h \
+    include/VariadicBind.h \
+    include/SQLiteCpp/sqlite3.h

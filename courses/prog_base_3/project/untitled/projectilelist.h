@@ -13,17 +13,19 @@ class ProjectileList
     sf::RenderWindow *window;
     sf::Image projImage;
     sf::Texture projTexture;
-    std::vector < Projectile > pList;
     Map * area;
     EffectList * effects;
-    void deleteByIndex(int index);
 public:
+    Vector2i remove(int index);
+    std::vector < Projectile > pVector;
     ProjectileList(sf::RenderWindow *window, float * time, Map * area, EffectList * effects);
-    void add(float energy, float x, float y, float xSpeed, float ySpeed, int type);
-    void updateList();
     Projectile * get(int index);
-    void checkForPresence(float x, float y, float width, float height);
+    void add(float energy, float x, float y, float xSpeed, float ySpeed, int type, char origin);
+    void updateList();
     bool isProjectileCollide(Projectile proj);
+    bool checkRect(int index, char origin, float x1, float y1, float x2, float y2);
 };
+
+bool isInRect(float x, float y, float x1, float y1, float x2, float y2);
 
 #endif // PROJECTILELIST_H

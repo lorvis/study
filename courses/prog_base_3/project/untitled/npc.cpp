@@ -262,6 +262,7 @@ if(type == SOLDIER){
         bool wallPresence = checkForWall(x,player->x,y+TILE_SIZE+6,y+TILE_SIZE+6,200);
         if(!wallPresence && std::abs(y-player->y)<=32){
             targetPlayer();
+            logicTimer = 10;
             if(energy > 25 && heat == 0){
                 strcat(debugText,"Shooting");
                 specialAnimCounter = 3;
@@ -276,6 +277,7 @@ if(type == SOLDIER){
             if(!wallPresence){
                 targetPlayer();
                 jump();
+                logicTimer = 10;
                 if(energy > 25 && heat == 0){
                     strcat(debugText,"Shooting");
                     specialAnimCounter = 3;
@@ -296,7 +298,7 @@ if(type == SOLDIER){
                 logicAction |= AI_RIGHT;
                 strcat(debugText,"RIGHT ");
             }
-            if(y-player->x > 0){
+            if(y-player->y > 0){
                 logicAction |= AI_DOWN;
                 strcat(debugText,"+ DOWN ");
             }
@@ -306,17 +308,20 @@ if(type == SOLDIER){
             }
            strcat(debugText,"|\n");
            if(logicAction & AI_RIGHT)
-               if(((area->tileTypeXY(x+PLAYER_SIZE+16+dx,y+TILE_SIZE*2+16)!='_') || (area->tileTypeXY(x+PLAYER_SIZE+16+dx,y+TILE_SIZE+16)!='_')) && jumpSpeed >= 0){
+               if((area->tileTypeXY(x+PLAYER_SIZE+16+dx,y+TILE_SIZE*2+16)!='_') || (area->tileTypeXY(x+PLAYER_SIZE+16+dx,y+TILE_SIZE+16)!='_')){
                 jump();
                }
            if(logicAction & AI_LEFT)
-               if(((area->tileTypeXY(x-16+dx,y+TILE_SIZE*2+16)!='_') || (area->tileTypeXY(x-16+dx,y+TILE_SIZE+16)!='_')) && jumpSpeed >= 0){
+               if((area->tileTypeXY(x-16+dx,y+TILE_SIZE*2+16)!='_') || (area->tileTypeXY(x-16+dx,y+TILE_SIZE+16)!='_')){
                 jump();
                }
+           if(logicAction & AI_UP)
+               if(((area->tileTypeXY(x+TILE_SIZE*2+16+dx,y+PLAYER_SIZE+16)!='_') && ((area->tileTypeXY(x+PLAYER_SIZE+TILE_SIZE+16+dx,y+PLAYER_SIZE+16)=='_'))))
+                jump();
 
-        }
     }
                 }
+}
 }
 
 void NPC::jump(){
@@ -332,6 +337,19 @@ void NPC::targetPlayer(){
     delete xLogicTarget;
     xLogicTarget = &player->x;
     }
+}
+
+bool NPC::checkForProj(){
+    char origin;
+    if(type == SOLDIER)
+        origin = ORIGIN_SOLDIER;
+    for(int i = 0; i < pList->pVector.size();i++){
+        if(pList->checkRect(i,origin,x+1,y+TILE_SIZE+1,x+PLAYER_SIZE,y+PLAYER_SIZE)){
+            pList->remove(i);
+            return true;
+        }
+    }
+    return false;
 }
 
 
