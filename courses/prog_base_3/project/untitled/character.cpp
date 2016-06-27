@@ -2,10 +2,6 @@
 #include <math.h>
 #include <string.h>
 #define PI 3.141592653589793
-#define CHAR_DEBUG
-
-#ifdef CHAR_DEBUG
-
 
 Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, Texture *cTexture, ProjectileList *allProj, charSBpack *sbPack)
 {
@@ -25,9 +21,6 @@ Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, 
     area = pMap;
     window = pWindow;
     this->time = time;
-    debugInfo.setColor(Color(255,0,0));
-    debugInfo.setCharacterSize(12);
-    debugInfo.setStyle(sf::Text::Regular);
     energyInfo.setColor(Color(40,40,255));
     energyInfo.setCharacterSize(36);
     energyInfo.setStyle(sf::Text::Regular);
@@ -69,14 +62,12 @@ void Character::updateFrame(){
             {
                 cSprite.setTextureRect(IntRect(2*PLAYER_SIZE,PLAYER_SIZE*3,PLAYER_SIZE,PLAYER_SIZE));
                cSprite.setPosition(Vector2f(x+dx,y+dy));
-               strcat(debugText,"STAND LEFT \n");
                        }
             else
             {
                 cSprite.setTextureRect(IntRect(2*PLAYER_SIZE,PLAYER_SIZE*3,PLAYER_SIZE,PLAYER_SIZE));
                 cSprite.setScale(-1,1);
                 cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                strcat(debugText,"STAND RIGHT \n");
             }
     }
         if(!isSpinning && (curDir & SPIN)!=0)
@@ -97,14 +88,12 @@ void Character::updateFrame(){
                 {
                     cSprite.setTextureRect(IntRect((int)(3 - currentFrame)*PLAYER_SIZE,PLAYER_SIZE*2,PLAYER_SIZE,PLAYER_SIZE));
                     cSprite.setPosition(Vector2f(x+dx,y+dy));
-                    strcat(debugText,"SPIN LEFT \n");
                 }
                 if((curDir & RIGHT)!=0)
                 {
                     cSprite.setTextureRect(IntRect((int)(3 - currentFrame)*PLAYER_SIZE,PLAYER_SIZE*2,PLAYER_SIZE,PLAYER_SIZE));
                     cSprite.setScale(-1,1);
                     cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                    strcat(debugText,"SPIN RIGHT \n");
                 }
 
         }
@@ -120,7 +109,6 @@ void Character::updateFrame(){
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,PLAYER_SIZE*3,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setScale(-1,1);
                         cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                        strcat(debugText,"UP RIGHT \n");
                     }
                     else
                     if((curDir & DOWN)!=0)
@@ -128,14 +116,12 @@ void Character::updateFrame(){
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,0,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setScale(-1,1);
                         cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                        strcat(debugText,"DOWN RIGHT \n");
                     }
                     else
                     {
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,PLAYER_SIZE,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setScale(-1,1);
                         cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                        strcat(debugText,"RIGHT \n");
                     }
                 }
                 if((curDir & LEFT)!=0){
@@ -143,20 +129,17 @@ void Character::updateFrame(){
                     {
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,PLAYER_SIZE*3,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setPosition(Vector2f(x+dx,y+dy));
-                        strcat(debugText,"UP LEFT \n");
                     }
                     else
                     if((curDir & DOWN)!=0)
                     {
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,0,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setPosition(Vector2f(x+dx,y+dy));
-                        strcat(debugText,"DOWN LEFT \n");
                     }
                     else
                     {
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,PLAYER_SIZE,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setPosition(Vector2f(x+dx,y+dy));
-                        strcat(debugText,"LEFT \n");
                     }
                 }
             }
@@ -205,19 +188,14 @@ void Character::checkstatus() {
     if(Keyboard::isKeyPressed(Keyboard::Z)||Keyboard::isKeyPressed(Keyboard::O)) {
         status ^= ABSORBING;
     }
-    if(status & ABSORBING)
-        strcat(debugText,"Status : Absorbing\n");
-    else
+    if(!(status & ABSORBING))
     {
 
         if(Keyboard::isKeyPressed(Keyboard::Space)||Keyboard::isKeyPressed(Keyboard::LShift))
         {
-            strcat(debugText,"Status : shooting\n");
             if(energy > 150)
             shoot(150,(curDir & LEFT),ENERGYBLAST);
         }
-            else
-            strcat(debugText,"Status : taking damage\n");
     }
     if((Keyboard::isKeyPressed(Keyboard::X)||Keyboard::isKeyPressed(Keyboard::I))&& boostTimer == 0 && energy > 50) {
         boostTimer = 50;
@@ -434,7 +412,6 @@ void Character::checkDir(){
 }
 
 void Character::update() {
-    sprintf(debugText,"");
     checkstatus();
     enspeed();
     checkDir();
@@ -443,7 +420,6 @@ void Character::update() {
     y+=dy;
     checkForProj();
     showEnergy();
-    debugChar();
 }
 
 void Character::shoot(float power, bool toLeft, char type){
@@ -494,29 +470,6 @@ bool Character::checkForProj(){
     }
     return hit;
 }
-
-void Character::debugChar(){
-    char debugData[400];
-    sprintf(debugData,"Coord:[%.2f,%.2f]\n"
-                      "TileCoord:[%i,%i]\n"
-                      "ENERGY = %f\n"
-                      "HEAT = %f\n"
-                      "dx = %f\n"
-                      "dy = %f\n"
-                      "|%c %c %c|\n"
-                      "|%c %c %c|\n"
-                      "|%c %c %c|\n"
-                        ,x,y,(int)x/32,(int)y/32,energy,heat,dx,dy,
-                        area->tileTypeXY(x,y),area->tileTypeXY(x+TILE_SIZE,y),area->tileTypeXY(x+TILE_SIZE*2,y),
-                        area->tileTypeXY(x,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE),
-                        area->tileTypeXY(x,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE*2+1)
-                        );
-    sf::String median = debugData;
-    debugInfo.setString(median);
-    debugInfo.setPosition(Vector2f(x-100,y-100));
-    window->draw(debugInfo);
-}
-#endif
 
 void Character::showEnergy(){
     char energyText[30];

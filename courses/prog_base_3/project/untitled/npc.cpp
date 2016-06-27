@@ -4,7 +4,6 @@
 #include <limits>
 
 void NPC::update(){
-    sprintf(debugText,"");
     checkstatus();
     updateLogic();
     enspeed();
@@ -20,31 +19,7 @@ void NPC::update(){
         heat = 0;
     x+=dx;
     y+=dy;
-#ifdef CHAR_DEBUG
-    char debugData[600];
-    sprintf(debugData,"\nCoord:[%.2f,%.2f]\n"
-                      "TileCoord:[%i,%i]\n"
-                      "ENERGY = %f\n"
-                      "HEAT = %f\n"
-                      "dx = %f\n"
-                      "dy = %f\n"
-                      "Jump speed = %f\n"
-                      "|%c %c %c|\n"
-                      "|%c %c %c|\n"
-                      "|%c %c %c|\n"
-                        ,x,y,(int)x/32,(int)y/32,energy,heat,dx,dy,jumpSpeed,
-                        area->tileTypeXY(x,y),area->tileTypeXY(x+TILE_SIZE,y),area->tileTypeXY(x+TILE_SIZE*2,y),
-                        area->tileTypeXY(x,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE),
-                        area->tileTypeXY(x,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE*2+1)
-                        );
-    strcat(debugText,debugData);
-    sf::String median = debugText;
-    debugInfo.setString(median);
-    debugInfo.setPosition(Vector2f(x-100,y-100));
-    window->draw(debugInfo);
-#endif
 }
-
 void NPC::updateFrame(){
     currentFrame+=(*time)*0.006;
     int soldierBackFlag = 0;
@@ -89,7 +64,6 @@ void NPC::updateFrame(){
                 else
                 cSprite.setTextureRect(IntRect(2*PLAYER_SIZE,PLAYER_SIZE*3,PLAYER_SIZE,PLAYER_SIZE));
                cSprite.setPosition(Vector2f(x+dx,y+dy));
-               strcat(debugText,"STAND LEFT \n");
                        }
             else
             {
@@ -99,7 +73,6 @@ void NPC::updateFrame(){
                 cSprite.setTextureRect(IntRect(2*PLAYER_SIZE,PLAYER_SIZE*3,PLAYER_SIZE,PLAYER_SIZE));
                 cSprite.setScale(-1,1);
                 cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                strcat(debugText,"STAND RIGHT \n");
             }
     }
 
@@ -120,7 +93,6 @@ void NPC::updateFrame(){
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,PLAYER_SIZE*3,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setScale(-1,1);
                         cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                        strcat(debugText,"UP RIGHT \n");
                     }
                     else
                     if((curDir & DOWN)!=0)
@@ -131,14 +103,12 @@ void NPC::updateFrame(){
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,0,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setScale(-1,1);
                         cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                        strcat(debugText,"DOWN RIGHT \n");
                     }
                     else
                     {
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,PLAYER_SIZE,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setScale(-1,1);
                         cSprite.setPosition(Vector2f(x+dx+PLAYER_SIZE,y+dy));
-                        strcat(debugText,"RIGHT \n");
                     }
                 }
                 if((curDir & LEFT)!=0){
@@ -154,7 +124,6 @@ void NPC::updateFrame(){
                         else
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,PLAYER_SIZE*3,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setPosition(Vector2f(x+dx,y+dy));
-                        strcat(debugText,"UP LEFT \n");
                     }
                     else
                     if((curDir & DOWN)!=0)
@@ -164,13 +133,11 @@ void NPC::updateFrame(){
                         else
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,0,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setPosition(Vector2f(x+dx,y+dy));
-                        strcat(debugText,"DOWN LEFT \n");
                     }
                     else
                     {
                         cSprite.setTextureRect(IntRect((int)currentFrame*PLAYER_SIZE,PLAYER_SIZE,PLAYER_SIZE,PLAYER_SIZE));
                         cSprite.setPosition(Vector2f(x+dx,y+dy));
-                        strcat(debugText,"LEFT \n");
                     }
                 }
             }
@@ -222,7 +189,6 @@ void NPC::checkstatus(){
     if(jumpSpeed > 0)
         jumpSpeed = 0;
 
-    strcat(debugText,"\n");
 
 }
 
@@ -255,7 +221,6 @@ bool NPC::checkForWall(float x1, float x2, float y1, float y2, int precision){
 void NPC::updateLogic(){
     anchorDirTimer = (int)anchorDirTimer%1000000;
     anchorDirTimer+=*time*(6+rand()%45);
-    strcat(debugText,"LOGIC:\n");
     if(logicTimer > 0)
     logicTimer -= 0.002*(*time);
     if(logicTimer < 0)
@@ -274,12 +239,10 @@ if(type == SOLDIER){
         if(!wallPresence && std::abs(y-player->y)<=32){
             targetPlayer();
             if(energy > 25 && heat == 0){
-                strcat(debugText,"Shooting");
                 specialAnimCounter = 3;
                 status |= SHOOTING;
                 shoot((int)energy%101,(x-player->x > 0),ENERGYBLAST);
             }
-            strcat(debugText,"|\n");
         }
         else
         {
@@ -288,7 +251,6 @@ if(type == SOLDIER){
                 targetPlayer();
                 jump();
                 if(energy > 25 && heat == 0){
-                    strcat(debugText,"Shooting");
                     specialAnimCounter = 3;
                     status |= SHOOTING;
                     shoot((int)energy%101,(x-player->x > 0),ENERGYBLAST);
@@ -301,24 +263,18 @@ if(type == SOLDIER){
             if(std::abs(player->x - x) < 96 && std::abs(player->y-y) >48)
                 dropAnchor();
             else {
-            strcat(debugText,"Searching -> ");
             if(x-player->x > 0){
                 logicAction |= AI_LEFT;
-                strcat(debugText,"LEFT ");
             }
             else{
                 logicAction |= AI_RIGHT;
-                strcat(debugText,"RIGHT ");
             }
             if(y-player->y > 0){
                 logicAction |= AI_DOWN;
-                strcat(debugText,"+ DOWN ");
             }
             else{
                 logicAction |= AI_UP;
-                strcat(debugText,"+ UP ");
             }
-           strcat(debugText,"|\n");
            if(logicAction & AI_RIGHT)
                if((area->tileTypeXY(x+PLAYER_SIZE+16+dx,y+TILE_SIZE*2+16)!='_') || (area->tileTypeXY(x+PLAYER_SIZE+16+dx,y+TILE_SIZE+16)!='_')){
                 jump();
@@ -357,7 +313,6 @@ void NPC::jump(){
 
 void NPC::targetPlayer(){
     logicTimer = 100;
-    strcat(debugText,"Player detected -> ");
     logicAction |= AI_TARGETED;
     if(xLogicTarget!=&player->x){
     delete xLogicTarget;

@@ -54,13 +54,6 @@ int main()
 
     gameStartUp(&player, &enemies, &projectiles, gStatus);
 
-
-#ifdef CHAR_DEBUG
-    sf::Font dFont;
-    dFont.loadFromFile("text/arial.ttf");
-    player.debugInfo.setFont(dFont);
-#endif
-
     sf::Font eFont;
     player.energyInfo.setFont(eFont);
     eFont.loadFromFile("text/biting my nails.ttf");
