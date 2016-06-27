@@ -1,6 +1,6 @@
 #include "map.h"
 
-    Map::Map(sf::String filename, sf::String tilesetFileName, sf::RenderWindow * window){
+    Map::Map(sf::String filename, sf::String tilesetFileName, sf::RenderWindow * window, char gStatus){
 
         this->window = window;
 
@@ -55,12 +55,26 @@
          }
 
         mapfile.close();
+
+        for(int i = 0; i < width; i++)
+            for(int j = 0; j < height; j++)
+                if(charmap[i][j] != 'e' && charmap[i][j] != 'h' && charmap[i][j] != 'v' && charmap[i][j] != '_')
+                {
+                    std::cerr << "illegal symbol in mapfile" << std::endl;
+                    exit(1);
+                }
+
+        if(gStatus != GS_NEWGAME)
+            for(int i = 0; i < width; i++)
+                for(int j = 0; j < height; j++)
+                    if(charmap[i][j] == 'e')
+                        charmap[i][j] = '_';
     }
 
    void Map::update(){
     for(int i = 0; i < width; i++)
         for(int j = 0; j < height;j++){
-        if(charmap[i][j]=='_')
+        if(charmap[i][j]=='_' || charmap[i][j]=='e')
             tilesetSprite.setTextureRect(sf::IntRect(TILE_SIZE*0,0,TILE_SIZE,TILE_SIZE));
         if(charmap[i][j]=='h')
             tilesetSprite.setTextureRect(sf::IntRect(TILE_SIZE*1,0,TILE_SIZE,TILE_SIZE));
@@ -75,6 +89,16 @@
    }
 
     char Map::tileTypeXY(float x, float y) {
-        return charmap[(int)(x/TILE_SIZE)][(int)(y/TILE_SIZE)];
+        char result = charmap[(int)(x/TILE_SIZE)][(int)(y/TILE_SIZE)];
+        if(result == 'e')
+            result = '_';
+        return result;
     }
 
+    int Map::getW(){
+        return width;
+    }
+
+    int Map::getH(){
+        return height;
+    }

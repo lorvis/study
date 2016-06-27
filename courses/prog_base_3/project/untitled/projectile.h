@@ -10,18 +10,11 @@ enum projType {UNDEFINED = 0,ENERGYBLAST = 2, BULLETSHOT = 4, LASER = 8, PLAYERS
 enum projOrigin {ORIGIN_UNDEFINED = 0, ORIGIN_PLAYER = 2, ORIGIN_SOLDIER = 4};
 
 class Projectile {
-    float xSpeed;
-    float ySpeed;
-    float x;
-    float y;
     float dx = 0;
     float dy = 0;
-    float energy;
     float currentFrame = 0;
     float * time;
-    char origin;
     int id;
-    int type;
     void updateFrame();
     sf::Sprite projSprite;
     sf::RenderWindow * window;
@@ -30,17 +23,24 @@ public:
     sf::Text debugInfo;
 #endif
     Projectile(float energy, sf::RenderWindow * window, float x, float y, float xSpeed, float ySpeed, int type, float * time, int id, sf::Texture * projTexture, char origin);
-    float getX();
-    float getY();
+    float xSpeed;
+    float ySpeed;
+    float energy;
+    float x;
+    float y;
+    int type;
+    char origin;
     int getID();
     char getDir();
     float getEnergy();
-    char getOrigin();
+    float getX();
+    float getY();
     void (*hitEffect)(int energy);
     void update();
     void accelerate(float xAccel, float yAccel);
     bool isThere(float x, float y, float width, float height);
     bool isHit();
+
 };
 
 #endif // PROJECTILE_H

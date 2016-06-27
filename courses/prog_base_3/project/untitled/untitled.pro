@@ -12,12 +12,14 @@ SOURCES += main.cpp \
     projectilelist.cpp \
     effect.cpp \
     effectlist.cpp \
-    enemylist.cpp
+    enemylist.cpp \
+    sqlite3.cpp \
+    sqlite.cpp
 
 LIBS += -L $$PWD\libs\
 
-CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system -lsqlite3
-CONFIG(debug, debug|release): LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-main-d -lsfml-network-d -lsfml-window-d -lsfml-system-d -lsqlite3
+CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system
+CONFIG(debug, debug|release): LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-main-d -lsfml-network-d -lsfml-window-d -lsfml-system-d
 
 INCLUDEPATH += $$PWD\include\
 DEPENDPATH += $$PWD\include\
@@ -40,4 +42,6 @@ HEADERS += \
     include/SQLiteCpp.h \
     include/Statement.h \
     include/VariadicBind.h \
-    include/SQLiteCpp/sqlite3.h
+    include/SQLiteCpp/sqlite3.h \
+    include/sqlite3.h \
+    sqlite.hpp

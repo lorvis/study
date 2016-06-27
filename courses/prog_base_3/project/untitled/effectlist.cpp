@@ -1,5 +1,4 @@
 #include "effectlist.h"
-#include <string.h>
 
 EffectList::EffectList(RenderWindow *window, float * time)
 {

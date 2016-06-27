@@ -7,7 +7,7 @@
 #ifdef CHAR_DEBUG
 
 
-Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, Texture *cTexture, ProjectileList *allProj)
+Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, float y, Texture *cTexture, ProjectileList *allProj, charSBpack *sbPack)
 {
     type = PLAYER;
     cSprite.setTexture(*cTexture);
@@ -32,6 +32,12 @@ Character::Character(Map * pMap, RenderWindow * pWindow, float * time, float x, 
     energyInfo.setCharacterSize(36);
     energyInfo.setStyle(sf::Text::Regular);
     curDir = RIGHT | STAND;
+    shotS.setBuffer(sbPack->shotSB);
+    deathS.setBuffer(sbPack->deathSB);
+    absorbS.setBuffer(sbPack->absSB);
+    shotS.setVolume(5);
+    deathS.setVolume(1);
+    absorbS.setVolume(5);
 }
 
 float Character::getX() {
@@ -168,6 +174,17 @@ void Character::checkstatus() {
     if(heat < 0)
         heat = 0;
 
+    if(!(boostTimer > 0))
+    {
+        boostTimer = 0;
+        speed = 1;
+    }
+    else
+    {
+        boostTimer-=0.03*(*time);
+        speed = 3;
+    }
+
     if(Keyboard::isKeyPressed(Keyboard::Left)||Keyboard::isKeyPressed(Keyboard::A)) {
        status |= BACKWARD;
         }
@@ -201,6 +218,10 @@ void Character::checkstatus() {
         }
             else
             strcat(debugText,"Status : taking damage\n");
+    }
+    if((Keyboard::isKeyPressed(Keyboard::X)||Keyboard::isKeyPressed(Keyboard::I))&& boostTimer == 0 && energy > 50) {
+        boostTimer = 50;
+        energy-=50;
     }
 }
 
@@ -239,7 +260,6 @@ char Character::checkTileAtP(char dir, int tile){
 }
 
 void Character::enspeed(){
-
     dx = 0;
     dy = 0;
 
@@ -292,7 +312,7 @@ bool Character::collision(){
     }
     if(dy < 0) {
         for(int i = 0; i < PLAYER_SIZE/TILE_SIZE; i++){
-            if(area->tileTypeXY(x+dx+TILE_SIZE*i,y+dy-16)!='_')
+            if(area->tileTypeXY(x+dx+TILE_SIZE*i,y+dy-1)!='_')
             {
                 dyhalt = true;
                 dy = 0;
@@ -414,16 +434,16 @@ void Character::checkDir(){
 }
 
 void Character::update() {
-sprintf(debugText,"");
-checkstatus();
-enspeed();
-checkDir();
-updateFrame();
-x+=dx;
-y+=dy;
-checkForProj();
-showEnergy();
-debugChar();
+    sprintf(debugText,"");
+    checkstatus();
+    enspeed();
+    checkDir();
+    updateFrame();
+    x+=dx;
+    y+=dy;
+    checkForProj();
+    showEnergy();
+    debugChar();
 }
 
 void Character::shoot(float power, bool toLeft, char type){
@@ -433,9 +453,11 @@ void Character::shoot(float power, bool toLeft, char type){
     if(this->type == SOLDIER)
         origin = ORIGIN_SOLDIER;
     if(heat == 0 && power > 0 && power <= energy){
-    pList->add(power,x+TILE_SIZE*2+6-pow(TILE_SIZE,(float)toLeft)*2,y+TILE_SIZE+6,0.18*pow((-1),(float)toLeft),0,type,origin);
-energy -= power;
-heat += power;
+        shotS.setVolume(0.03*power);
+        shotS.play();
+        pList->add(power,x+TILE_SIZE*2+6-pow(TILE_SIZE,(float)toLeft)*2,y+TILE_SIZE+6,0.18*pow((-1),(float)toLeft),0,type,origin);
+        energy -= power;
+        heat += power;
     }
 }
 
@@ -445,6 +467,7 @@ defeated = true;
 
 void Character::absorb(int energy){
     if(this->energy+energy <= 300 && (status & ABSORBING)){
+        absorbS.play();
         this->energy+=energy;
     }
     else{
@@ -454,11 +477,16 @@ void Character::absorb(int energy){
 
 bool Character::checkForProj(){
     bool hit = false;
+    if(type==PLAYER)
+    {
+    }
     for(int i = 0; i < pList->pVector.size();i++){
         if(pList->checkRect(i,ORIGIN_PLAYER,x+1,y+TILE_SIZE+1,x+PLAYER_SIZE,y+PLAYER_SIZE)){
+            pList->effects->add(pList->pVector.at(i).x,pList->pVector.at(i).y,ASHIELD_EFFECT,NOTARGET,EFFECT_NODIR,NULL);
             Vector2i recievedP = pList->remove(i);
-            if(!(status & ABSORBING))
+            if(!(status & ABSORBING)){
                 die();
+            }
             else
                 absorb(recievedP.x);
             hit = true;
@@ -468,33 +496,32 @@ bool Character::checkForProj(){
 }
 
 void Character::debugChar(){
-char debugData[400];
-sprintf(debugData,"Coord:[%.2f,%.2f]\n"
-                  "TileCoord:[%i,%i]\n"
-                  "ENERGY = %f\n"
-                  "HEAT = %f\n"
-                  "dx = %f\n"
-                  "dy = %f\n"
-                  "|%c %c %c|\n"
-                  "|%c %c %c|\n"
-                  "|%c %c %c|\n"
-                    ,x,y,(int)x/32,(int)y/32,energy,heat,dx,dy,
-                    area->tileTypeXY(x,y),area->tileTypeXY(x+TILE_SIZE,y),area->tileTypeXY(x+TILE_SIZE*2,y),
-                    area->tileTypeXY(x,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE),
-                    area->tileTypeXY(x,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE*2+1)
-                    );
-sf::String median = debugData;
-debugInfo.setString(median);
-debugInfo.setPosition(Vector2f(x-100,y-100));
-window->draw(debugInfo);
+    char debugData[400];
+    sprintf(debugData,"Coord:[%.2f,%.2f]\n"
+                      "TileCoord:[%i,%i]\n"
+                      "ENERGY = %f\n"
+                      "HEAT = %f\n"
+                      "dx = %f\n"
+                      "dy = %f\n"
+                      "|%c %c %c|\n"
+                      "|%c %c %c|\n"
+                      "|%c %c %c|\n"
+                        ,x,y,(int)x/32,(int)y/32,energy,heat,dx,dy,
+                        area->tileTypeXY(x,y),area->tileTypeXY(x+TILE_SIZE,y),area->tileTypeXY(x+TILE_SIZE*2,y),
+                        area->tileTypeXY(x,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE),
+                        area->tileTypeXY(x,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE,y+TILE_SIZE*2+1),area->tileTypeXY(x+TILE_SIZE*2,y+TILE_SIZE*2+1)
+                        );
+    sf::String median = debugData;
+    debugInfo.setString(median);
+    debugInfo.setPosition(Vector2f(x-100,y-100));
+    window->draw(debugInfo);
 }
 #endif
 
 void Character::showEnergy(){
     char energyText[30];
-    sprintf(energyText,"Energy:%.0f",energy);
+    sprintf(energyText,"Energy %.0f",energy);
     energyInfo.setString(energyText);
     energyInfo.setPosition(x-500,y+300);
     window->draw(energyInfo);
 }
-

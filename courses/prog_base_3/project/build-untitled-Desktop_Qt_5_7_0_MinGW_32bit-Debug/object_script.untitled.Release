@@ -9,4 +9,6 @@ INPUT(
 ./release\effect.o
 ./release\effectlist.o
 ./release\enemylist.o
+./release\sqlite3.o
+./release\sqlite.o
 );

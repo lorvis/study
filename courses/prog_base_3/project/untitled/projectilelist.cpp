@@ -4,6 +4,9 @@
 ProjectileList::ProjectileList(sf::RenderWindow * window, float *time, Map *area, EffectList *effects)
 {
     projImage.loadFromFile("images/Effects.png");
+    boomSB.loadFromFile("sounds/boom.wav");
+    boomS.setBuffer(boomSB);
+    boomS.setVolume(5);
     projTexture.loadFromImage(projImage);
     this->window = window;
     this->time = time;
@@ -23,7 +26,7 @@ Projectile * ProjectileList::get(int index){
 Vector2i ProjectileList::remove(int index){
     Vector2i res;
     res.x = (int)pVector.at(index).getEnergy();
-    res.y = (int)pVector.at(index).getOrigin();
+    res.y = (int)pVector.at(index).origin;
     pVector.erase(pVector.begin()+index);
     return res;
 }
@@ -36,6 +39,7 @@ void ProjectileList::updateList(){
         {
             Projectile * toDel = &pVector.at(i);
             effects->add(toDel->getX(),toDel->getY(),ENERGYBOOM,EFFECT_NOTYPE,toDel->getDir(),NULL);
+            boomS.play();
             pVector.erase(pVector.begin()+i);
             if(i > 0)
             i--;
@@ -56,7 +60,7 @@ bool ProjectileList::isProjectileCollide(Projectile proj){
 
 bool ProjectileList::checkRect(int index,char origin, float x1, float y1, float x2, float y2){
     Projectile * toCheck = &(pVector.at(index));
-    if(toCheck->getOrigin() == origin)
+    if(toCheck->origin == origin)
         return false;
     else
         if(isInRect(toCheck->getX(),toCheck->getY(),x1,y1,x2,y2))
@@ -69,3 +73,4 @@ bool isInRect(float x, float y, float x1, float y1, float x2, float y2){
     else
         return false;
 }
+

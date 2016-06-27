@@ -9,4 +9,6 @@ INPUT(
 ./debug\effect.o
 ./debug\effectlist.o
 ./debug\enemylist.o
+./debug\sqlite3.o
+./debug\sqlite.o
 );

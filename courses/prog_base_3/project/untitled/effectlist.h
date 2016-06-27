@@ -1,6 +1,7 @@
 #ifndef EFFECTLIST_H
 #define EFFECTLIST_H
 #include "effect.h"
+#include <string.h>
 
 using namespace sf;
 

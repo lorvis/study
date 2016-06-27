@@ -25,6 +25,13 @@ Effect::Effect(float x, float y, float * time, sf::RenderWindow * window, char t
     case EPROJ :
         effectTextureY = 0;
         break;
+    case ASHIELD_EFFECT  :
+        effectTextureY = 40;
+        effectTimer = 4;
+        animationSpeed = 0.009;
+        effectWidth = 19;
+        effectHeight = 20;
+        break;
     }
     this->eTexture = eTexture;
     this->tarType = tarType;
@@ -38,8 +45,8 @@ void Effect::update(){
     if(effectTimer <= 0)
         toDelete = true;
     else {
-        eSprite.setTextureRect(sf::IntRect((int)effectTimer*effectWidth,effectHeight,effectWidth,effectHeight));
-        if(dir == ERIGHT){
+        eSprite.setTextureRect(sf::IntRect((int)effectTimer*effectWidth,effectTextureY,effectWidth,effectHeight));
+        if(dir == ERIGHT && (type & ENERGYBOOM || type & EPROJ)){
             eSprite.setScale(-1,1);
             eSprite.setPosition(sf::Vector2f(*x+8,*y+8));
         }

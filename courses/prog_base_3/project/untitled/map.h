@@ -5,6 +5,8 @@
 #include <iostream>
 #define TILE_SIZE 32
 
+enum gameStatus { GS_NONE = 0, GS_NEWGAME = 2, GS_LOADED = 4, GS_WIN = 8, GS_DEFEAT = 16,GS_CLOSED = 32, GS_NEXT = 64 };
+
 struct xyPVector {
     float * x;
     float * y;
@@ -22,9 +24,11 @@ class Map{
     int width;
     int height;
 public:
-    Map(sf::String filename, sf::String tilesetFileName, sf::RenderWindow * window);
+    Map(sf::String filename, sf::String tilesetFileName, sf::RenderWindow * window, char gStatus);
     char tileTypeXY(float x, float y);
     char ** charmap;
     void update();
+    int getW();
+    int getH();
 };
 #endif // MAP_H

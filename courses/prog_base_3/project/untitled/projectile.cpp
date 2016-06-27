@@ -103,7 +103,3 @@ char Projectile::getDir(){
 float Projectile::getEnergy(){
     return energy;
 }
-
-char Projectile::getOrigin(){
-    return origin;
-}
