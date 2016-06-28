@@ -23,7 +23,7 @@ int main()
 {
     int mapCount;
     char gStatus = intro(&mapCount);
-    if(GS_NEWGAME)
+    if(gStatus & GS_NEWGAME)
         mapCount = 1;
     if(mapCount == 0){
         gStatus = GS_NEWGAME;
