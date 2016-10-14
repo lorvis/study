@@ -1,0 +1,90 @@
+[
+  {
+    "Type" : "Planet",
+    "ID" : 0,
+    "How big": "VERY BIG",
+    "How old (bil. years)" : 3.5,
+    "How far (light years)": 9999,
+    "Death year" : "5555-05-05"
+  },
+  {
+    "Type" : "Star",
+    "ID" : 1,
+    "How big": "Enormous",
+    "How old (bil. years)" : 5,
+    "How far (light years)": 50,
+    "Death year" : "2012-12-12"
+  },
+  {
+    "Type" : "Planet",
+    "ID" : 2,
+    "How big": "Not so big",
+    "How old (bil. years)" : 3,
+    "How far (light years)": 50,
+    "Death year" : "1666-06-06"
+  },
+  {
+    "Type" : "Quasar",
+    "ID" : 3,
+    "How big": "Uncanny big",
+    "How old (bil. years)" : 12,
+    "How far (light years)": 127306,
+    "Death year" : "9999-12-31"
+  },
+  {
+    "Type" : "Galaxy",
+    "ID" : 4,
+    "How big": "INCREDIBLY BIG",
+    "How old (bil. years)" : 10,
+    "How far (light years)": 100005,
+    "Death year" : "9999-12-31"
+  },
+  {
+    "Type" : "SUPERCLUSTER",
+    "ID" : 5,
+    "How big": "F**CKING BIG!!!",
+    "How old (bil. years)" : 11,
+    "How far (light years)": 9999999,
+    "Death year" : "9999-12-31"
+  },
+  {
+    "Type" : "Dog",
+    "ID" : 6,
+    "How big": "Small",
+    "How old (bil. years)" : 0,
+    "How far (light years)": 0,
+    "Death year" : "1998-10-07"
+  },
+  {
+    "Type" : "Human",
+    "ID" : 7,
+    "How big": "Bigger than dog",
+    "How old (bil. years)" : 0,
+    "How far (light years)": 0,
+    "Death year" : "2137-05-05"
+  },
+  {
+    "Type" : "Void",
+    "ID" : 8,
+    "How big": "Haven't size",
+    "How old (bil. years)" : 9999999,
+    "How far (light years)": 0,
+    "Death year" : "9999-12-31"
+  },
+  {
+    "Type" : "UNIVERSE",
+    "ID" : 9,
+    "How big": "MAXIMUM",
+    "How old (bil. years)" : 13,
+    "How far (light years)": 0,
+    "Death year" : "9999-12-31"
+  },
+  {
+    "Type" : "Star",
+    "ID" : 10,
+    "How big": "Enormous",
+    "How old (bil. years)" : 4,
+    "How far (light years)": 4000,
+    "Death year" : "2012-12-27"
+  }
+]

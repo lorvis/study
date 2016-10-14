@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %} object #{{ obj_id }} {% endblock %}
+
+{% block body %}
+    <ul class="ObjInfo">
+    <li>ID: {{ obj_id }}</li>
+    <li>Type: {{ objlist[obj_id].get("Type") }}</li>
+    <li>Size: {{ objlist[obj_id].get("How big") }}</li>
+    <li>Age: {{ objlist[obj_id].get("How old (bil. years)") }}</li>
+    <li>Distance to object: {{ objlist[obj_id].get("How far (light years)") }}</li>
+    <li>Year of destruction: {{ objlist[obj_id].get("Death year") }}</li>
+    <li class="ImgContainer"><img src="{{ url_for('static',filename="images/" + obj_id|string + ".jpg") }}"></li>
+    </ul>
+    <a href="{{ url_for('objects') }}">BACK</a>
+{% endblock %}

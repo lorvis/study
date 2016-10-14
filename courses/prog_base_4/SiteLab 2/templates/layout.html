@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/style.css") }}">
+    <title> {% block title %} Title {% endblock %} </title>
+    {% block head %} {% endblock %}
+</head>
+
+<body>
+<a href="{{ url_for('index') }}"><span class="Header">Some site of objects</span></a>
+<div>
+    {% block body %} {% endblock %}
+</div>
+
+</body>
+
+</html>

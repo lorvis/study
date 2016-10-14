@@ -1,0 +1,56 @@
+
+body {
+    background-color: #dad6d9;
+    font-family: "Arial Black";
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.Header {
+    background-color: #f8f8f8;
+    color: #2a25ce;
+    font-family: fantasy;
+    font-size: 2em;
+    align-content: center;
+    width: 20em;
+    height: 5em;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-left: 35%;
+}
+
+.ObjShortInfo {
+    background-color: #b0beef;
+    text-decoration: none;
+    width: 23em;
+    height: 22em;
+    margin-bottom: 30px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 20px;
+}
+
+.ObjInfo {
+    background-color: #b0beef;
+    text-decoration: none;
+    width: 23em;
+    height: 20em;
+    margin-bottom: 30px;
+    padding: 5px 5px 80px 30px;
+    border-radius: 20px;
+    margin-left: 30px;
+}
+
+.ImgContainer {
+    height: 160em;
+}
+
+img {
+    max-height: 10%;
+    max-width: 94%;
+}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %} List of objects {% endblock %}
+
+{% block body %}
+
+<p>Here are a list of some objects</p>
+<ul>
+{% for i in range(0,obj_amount-1) %}
+    <li class="ObjShortInfo">
+    <span >
+        <ul>
+            <li>ID: {{ i }}</li>
+            <li>Type: {{ objlist[i].get("Type") }}</li>
+            <a href="{{ url_for('curr_object',obj_id=i) }}"><li>Full info</li></a>
+            <li class="ImgContainer"><img src="{{ url_for('static', filename="images/" + i|string + ".jpg") }}"  ></li>
+        </ul>
+    </span>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}
