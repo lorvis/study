@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% from "_flashlist.html" import flashes %}
+
+{% block content %}
+    <h1>Registration page</h1>
+
+    {{ flashes(flash="error") }}
+    <form method="post" action=" {{ url_for('register') }}" >
+    <dl>
+        {{ render_field(form.login) }}
+        {{ render_field(form.username) }}
+        {{ render_field(form.password) }}
+        {{ render_field(form.confirm) }}
+        {{ render_field(form.email) }}
+        <input type="hidden" value="{{ csrf_token() }}" name="csrf_token">
+        <input type="submit" value="Register">
+    </dl>
+
+</form>
+{% endblock %}

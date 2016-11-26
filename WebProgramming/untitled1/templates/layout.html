@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
+    {% endblock %}
+</head>
+<body>
+{% block nbar %}
+<div id="NBar">
+    <a href="{{ url_for('index') }}" >Main Page</a>
+    {% if session.get("authenticated") %}
+    <a href="{{ url_for("profile") }}">{{ session.get("username") }}</a>
+    {% else %}
+    <a href="{{ url_for("register") }}">Register</a>
+    {% endif %}
+
+    {% if session.get("authenticated") %}
+    <a href="{{ url_for("logout") }}">Log out</a>
+    {% else %}
+    <a href="{{ url_for("login")}}">Log in</a>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block layout_csrf %}
+{#<form method="post" action="/">#}
+{#    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />#}
+{#</form>#}
+{% endblock %}
+
+</body>
+</html>

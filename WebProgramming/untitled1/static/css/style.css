@@ -1,0 +1,60 @@
+body {
+    background-color: #383838;
+    color: burlywood;
+    font-family: "AvantGarde";
+    src: url(http://ufonts.com/download/avantgarde/199861.html) format("truetype")
+}
+
+img {
+    border: 20px solid #3c3c3c;
+    border-radius: 10px;
+}
+
+/* region users */
+.premium {
+    color: blue;
+    text-shadow: 0 0 40px gold;
+}
+
+.user_info_panel {
+    padding: 0 0 0 100px;
+    border-radius: 2px;
+    background-color: #3c3c3c;
+}
+/* endregion */
+
+/* region NBar */
+
+#NBar {
+    padding: 0 5em 0 0;
+    margin-bottom: 3em;
+    font-size: 30px;
+}
+
+#NBar a {
+    text-decoration: none;
+    border-bottom: 4px;
+    border-color: red;
+}
+
+#NBar a:hover {
+    text-decoration: none;
+    border-bottom: 4px;
+    border-color: red;
+    color: red;
+}
+
+/* endregion */
+
+/* region flashes */
+
+.flash {
+    color: blue;
+}
+
+
+.error {
+    color: red;
+}
+
+/* endregion */

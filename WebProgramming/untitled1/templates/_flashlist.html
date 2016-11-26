@@ -1,0 +1,11 @@
+{% macro flashes(flash="flash", flashlist="flashlist") %}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+    <ul class="{{ flashlist }}">
+            {% for message in messages %}
+        <li class="{{ flash }}">{{ message }}</li>
+            {% endfor %}
+    </ul>
+        {% endif %}
+    {% endwith %}
+{% endmacro %}

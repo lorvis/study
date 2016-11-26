@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% from "_flashlist.html" import flashes %}
+{% block content %}
+    <h1>Login page</h1>
+    <p></p>
+    {{ flashes(flash="error") }}
+    <form method="post" action="{{ url_for('login') }}" >
+    {{ render_field(form.login) }}
+    {{ render_field(form.password) }}
+        <input type="submit" value="Log in">
+    <input type="hidden" value= "{{ csrf_token() }}" name="csrf_token">
+    </form>
+{% endblock %}

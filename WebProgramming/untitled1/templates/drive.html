@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+<form enctype="multipart/form-data" action="{{ url_for('drive') }}">
+<input type="file" name="uploaded">
+<input type="submit" value="Upload">
+<input type="hidden" value="{{ csrf_token() }}" name="csrf_token">
+</form>
+
+    {{ tree|safe }}
+{% endblock %}

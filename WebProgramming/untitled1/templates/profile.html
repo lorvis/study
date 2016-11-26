@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>{{ user["username"] }}</h1>
+
+    {% if user["avatar"] %}
+        <img src="data:image/jpg;base64,{{ user["avatar"] }}">
+    {% else %}
+        <span class="ava_container">
+            <img src="{{ url_for('static', filename='images/icons/avatar.jpg') }}">
+        </span>
+    {% endif %}
+
+    {% if session.get("ID") == user["ID"] %}
+        <form enctype="multipart/form-data" action="{{ url_for('avatar') }}" method="post">
+        <input type="file" name="avatar"><br><br>
+        <input type="submit" value="send avatar">
+        <input type="hidden" value="{{ csrf_token() }}" name="csrf_token">
+        </form>
+    <p>Downloads: {{ user["downloads"] }}</p>
+    <p>Files: {{ user["files"] }}</p>
+    <p>Directories: {{ user["directories"] }}</p>
+    <p>Free space: {{ freespace_max[user["type"]] - user["memory used"] }}</p>
+    {% endif %}
+
+{% endblock %}
+{% block layout_csrf %}{% endblock %}
