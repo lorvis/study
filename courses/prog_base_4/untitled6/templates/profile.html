@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>{{ user["username"] }}</h1>
+
+    {% if user["status"] %}
+    <h3>Status: {{ user["status"] }}</h3>
+    {% endif %}
+
+    {% if session.get("ID") == user["ID"] %}
+        <form action="{{ url_for('status') }}" method="post">
+            <input type="text" name="status" title="Change the status">
+        <span><input type="submit" name="submit" value="Change status"></span>
+        </form>
+    {% endif %}
+
+    {% if user["years old"] %}
+    <h4>Age: {{ user["years old"] }}</h4>
+    {% endif %}
+
+    {% if session.get("ID") == user["ID"] %}
+        <form action="{{ url_for('age') }}" method="post">
+            <input type="text" name="age" title="Change your age">
+            <span><input type="submit" name="submit" value="Change age"></span>
+        </form>
+    {% endif %}
+
+{% endblock %}
+{% block layout_csrf %}{% endblock %}
