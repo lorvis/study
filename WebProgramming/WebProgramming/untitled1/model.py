@@ -89,7 +89,7 @@ def saltyhash(password):
     m = hashlib.md5()
     m.update(bytes(str(password), encoding="UTF-8"))
     m.update(bytes("wX1n1tgwu9Wkee4I3djOr2J05TuUUr", encoding="UTF-8"))
-    return str(m.digest())
+    return str(m.hexdigest())
 
 
 def get_groups_by_login(login):

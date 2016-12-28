@@ -1,4 +1,10 @@
 from model import *
+from flask import request, render_template, url_for, flash, redirect, session, abort, Response, send_from_directory, send_file, after_this_request
+from flask_bootstrap import Bootstrap
+from navbar import *
+from shutil import rmtree
+from mimetypes import guess_type
+from markupsafe import escape
 
 csrf = CsrfProtect()
 app = Flask(__name__)
@@ -8,14 +14,24 @@ csrf.init_app(app)
 address = "http://127.0.0.1"
 port = 27015
 full_address = address + ":" + str(port)
-
+Bootstrap(app)
 login_manager = LoginManager()
-
 login_manager.init_app(app)
+server_root = os.getcwd()
+drive_root = os.getcwd() + "\\user files\\storage\\"
 
 ALLOWED_IMAGE_TYPES = ['PNG', 'BMP', 'JPEG', 'JPG']
 
 # region Classes
+
+
+class TreeObj:
+    def __init__(self, id, name, path, size, type):
+        self.id = id
+        self.name = name
+        self.path = path
+        self.size = size
+        self.type = type
 
 
 class UserFieldEnum(Enum):
@@ -23,6 +39,9 @@ class UserFieldEnum(Enum):
     login = int(2)
     username = int(4)
     email = int(8)
+
+
+nav.init_app(app)
 
 
 class RegistrationForm(Form):
@@ -67,17 +86,113 @@ def dated_url_for(endpoint, **values):
 
 def generate_os_tree_html(root):
     html = ''
+    cur_dir_level = 0
     for root, dirs, files in os.walk(root):
-        level = root.replace(root, '').count(os.se)
-        indent = ' ' * 4 * level
-        html += '<pre>' + indent
-        html += os.path.basename(root) + '</pre>'
-        subindent = ' ' * 4 * (level + 1)
+        level = root.replace(drive_root, '').count(os.sep)
+        if level == 0:
+            html += '<div class="directory">Drive</div><div class="dircontent">'
+            continue
+        else:
+            if level > cur_dir_level:
+                html += '<div class="dircontent">'
+                cur_dir_level += 1
+            elif level < cur_dir_level:
+                html += '</div>'
+                cur_dir_level -= 1
+            dirname = os.path.basename(root)
+            roothash = saltyhash(root)
+        html += '<div><a onclick="updateTreeRepr(\'' + roothash +'\')"' +\
+                'ondblclick=contentChangeHiddenState("' + roothash + '")>' +\
+                '<span class="directory" id="' + roothash + '" style="margin-left: ' + str(level * 30) + 'px">' + \
+                dirname + \
+                '</span>' + \
+                "<label class=\"btn btn-default btn-file\">" + \
+                "Upload" + \
+                "<input type=\"file\" name=\"file\" style=\"display: none;\">" + \
+                "</label>" + \
+                '</div>' + \
+                '<div class="dircontent">'
+        if root[len(root)-1] != os.sep:
+            root += os.sep
         for f in files:
-            html += '<pre>' + subindent
-            html += f + '</pre>'
+            level = root.replace(drive_root, '').count(os.sep)
+            # html += '<a href="' + url_for('download', file_id=saltyhash(root+f)) + '"><div>' + '<span class="file"  id="' + saltyhash(root+f) + '" style="margin-left: ' + str(level * 30) + 'px">'
+            # html += f + '</span>' + '</div></a>'
+            filehash = saltyhash(root+f)
+            html += '<div><a id="' + f + '" onclick="updateTreeRepr(\'' + filehash +'\')" ondblclick="downloadTreeFile(\''+ filehash +'\')"><span class="file"  id="' \
+                    + filehash \
+                    + '" style="margin-left: ' + str(level * 30) + 'px">'
+            html += f + '</span>' + '</a></div>'
+        html += "</div>"
+    html += "</div></div>"
     return html
 
+
+def send_file_from_hashtree(root, hash):
+    for root, dirs, files in os.walk(root):
+        if root[len(root)-1] != os.sep:
+            root += os.sep
+        for f in files:
+            if hash == saltyhash(root+f):
+                result = send_from_directory(directory=root, filename=f)
+                result.headers["Content-Disposition"] = "inline; filename=\"" + f + "\""
+                result.headers["Content-type"] = "application/octet-stream"
+                result.headers["Cache-Control"] = "no-cache"
+                result.headers["Pragma"] = "no-cache"
+                return result
+    return redirect(url_for('drive'))
+
+
+def get_file_to_hashtree(root, hash, file):
+    for root, dirs, files in os.walk(root):
+        if hash == saltyhash(root):
+            file.save(root, file.filename)
+            return Response(status=200)
+        if root[len(root)-1] != os.sep:
+            root += os.sep
+        for f in files:
+            pass
+    return Response(status=404)
+
+
+def get_file_by_id(id, root):
+    for root, dirs, files in os.walk(root):
+        if root[len(root)-1] != os.sep:
+            root += os.sep
+        for f in files:
+            if hash == saltyhash(root+f):
+                return f, os.stat(root+f).st_size
+    return redirect(url_for('drive'))
+
+
+def get_treeobj_by_id(obj_id, user_id):
+    base_root = drive_root + str(user_id)
+    for root, dirs, files in os.walk(base_root):
+        if obj_id == saltyhash(root):
+            root += os.sep
+            return TreeObj(obj_id, os.path.dirname(root), root, None, "d")
+        if root[len(root)-1] != os.sep:
+            root += os.sep
+        for f in files:
+            if obj_id == saltyhash(root+f):
+                stat = os.stat(root+f)
+                return TreeObj(obj_id, f, root + f, stat.st_size, "f")
+    return None
+
+
+def tree_get_path(obj_id, user_id):
+    base_root = drive_root + str(user_id)
+    for root, dirs, files in os.walk(base_root):
+        if obj_id == saltyhash(root):
+            root += os.sep
+            return root
+        if root[len(root)-1] != os.sep:
+            root += os.sep
+        for f in files:
+            if obj_id == saltyhash(root+f):
+                stat = os.stat(root+f)
+                return root+f
+    return None
 # endregion
 
 # region context
@@ -90,11 +205,6 @@ def csrf_protect():
 # app.jinja_env.globals['_csrf_token'] = generate_csrf
 
 
-@login_manager.user_loader
-def user_loader(user_id):
-    return get_user_by_id(user_id)
-
-
 @app.context_processor
 def url_for_override():
     return dict(
@@ -104,12 +214,31 @@ def url_for_override():
         session=session,
         acctypes=acctypes,
         freespace_max=freespace_max,
-        os=os
+        os=os,
+        nav=nav,
     )
 
 # endregion
 
 # region Routes
+
+
+@app.route('/drive/ajax/tree-repr/<id>')
+def ajax_repr(id=None):
+    @after_this_request
+    def content_type_to_html(response):
+        response.headers["Content-type"] = 'text/html'
+        return response
+
+    if not id or not session.get("ID"):
+        return "AJAX NULL ERROR"
+
+    treeobj = get_treeobj_by_id(id, session.get("ID"))
+
+    if treeobj:
+        return render_template('ajax/repr.html', treeobj=treeobj)
+    else:
+        return "FOUND NOTHING"
 
 
 @app.route('/')
@@ -184,10 +313,47 @@ def register():
 def drive():
     if request.method == "GET":
         if User(user_id=session.get("ID")).exists():
-            root = drive_root + str(session.get("ID")) + "\\"
+            root = drive_root + str(session.get("ID"))
             return render_template('drive.html', tree=generate_os_tree_html(root))
-        else:
-            return Response(status=403)
+    return None
+
+
+@app.route('/drive/download/<file_id>')
+def download(file_id):
+    root = drive_root + str(session.get("ID")) + "\\"
+    result = send_file_from_hashtree(root, file_id)
+    if result:
+        return result
+    else:
+        return redirect('drive')
+
+
+@app.route('/drive/delete/<obj_id>')
+def delete(obj_id):
+    user = User(user_id=session.get("ID"))
+    if user.exists():
+        path = tree_get_path(obj_id, user["ID"])
+
+        if os.path.isfile(path):
+            os.remove(path)
+
+        if os.path.isdir(path):
+            rmtree(path)
+
+    return redirect(url_for('drive'))
+
+
+@app.route('/drive/upload/<directory_id>', methods=["POST"])
+def upload(directory_id):
+    root = drive_root + str(session.get("ID")) + "\\"
+    if 'file' not in request.files:
+        flash('No file part')
+        return Response(status=400)
+    file = request.files['file']
+    if file.filename == '':
+        return Response(status=400)
+    get_file_to_hashtree(root, directory_id, file)
+    return redirect(url_for('drive'))
 
 
 @app.route('/login/', methods=['GET', 'POST'])

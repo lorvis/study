@@ -1,40 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% block head %}
-    <meta charset="UTF-8">
-    <title>Homepage</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
-    {% endblock %}
-</head>
-<body>
-{% block nbar %}
-<div id="NBar">
-    <a href="{{ url_for('index') }}" >Main Page</a>
-    {% if session.get("authenticated") %}
-    <a href="{{ url_for("profile") }}">{{ session.get("username") }}</a>
-    {% else %}
-    <a href="{{ url_for("register") }}">Register</a>
-    {% endif %}
+{%- extends "bootstrap/base.html" %}
 
-    {% if session.get("authenticated") %}
-    <a href="{{ url_for("logout") }}">Log out</a>
-    {% else %}
-    <a href="{{ url_for("login")}}">Log in</a>
-    {% endif %}
 
-</div>
+{% block navbar %}
+<header class="navbar navbar-bright navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id="brand" href="/" title="File Storage">STORAGE</a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+          {% if session.get("ID") %}
+        <li>
+          <a href="/drive" id="AjaxElem">Drive</a>
+        </li>
+        <li>
+          <a href="/profile">Profile</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+          {% endif %}
+
+          {% if not session.get("ID") %}
+        <li>
+          <a href="/register">Register</a>
+        </li>
+        <li>
+          <a href="/login">Login</a>
+        </li>
+          {% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
 {% endblock %}
 
-{% block content %}
+{% import "bootstrap/fixes.html" as fixes %}
 
+
+{% block title %}Sample App for Flask-Bootstrap{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{%- endblock %}
+
+{% block styles -%}
+    {{super()}}
+    <link rel="stylesheet" type="text/css"
+          href="{{url_for('static', filename='css/style.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
 {% endblock %}
-
-{% block layout_csrf %}
-{#<form method="post" action="/">#}
-{#    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />#}
-{#</form>#}
-{% endblock %}
-
-</body>
-</html>

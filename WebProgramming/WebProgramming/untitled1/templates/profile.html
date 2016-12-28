@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+    <span class="col-lg-6">
     <h1>{{ user["username"] }}</h1>
 
     {% if user["avatar"] %}
@@ -9,17 +10,21 @@
             <img src="{{ url_for('static', filename='images/icons/avatar.jpg') }}">
         </span>
     {% endif %}
-
     {% if session.get("ID") == user["ID"] %}
         <form enctype="multipart/form-data" action="{{ url_for('avatar') }}" method="post">
         <input type="file" name="avatar"><br><br>
         <input type="submit" value="send avatar">
         <input type="hidden" value="{{ csrf_token() }}" name="csrf_token">
         </form>
+    </span>
+            </span>
+    <span class="col-lg-6">
+        <div class="profile_info">
     <p>Downloads: {{ user["downloads"] }}</p>
     <p>Files: {{ user["files"] }}</p>
     <p>Directories: {{ user["directories"] }}</p>
     <p>Free space: {{ freespace_max[user["type"]] - user["memory used"] }}</p>
+        </div>
     {% endif %}
 
 {% endblock %}
