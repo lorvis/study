@@ -1,0 +1,18 @@
+c:\users\eve\documents\visual studio 2015\Projects\GoingToTheShop\GoingToTheShop\bin\Debug\GoingToTheShop.exe.config
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\bin\Debug\GoingToTheShop.exe
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\bin\Debug\GoingToTheShop.pdb
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\MainWindow.g.cs
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\App.g.cs
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop_MarkupCompile.cache
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop_MarkupCompile.lref
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\MainWindow.baml
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop.g.resources
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop.Properties.Resources.resources
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop.csproj.GenerateResource.Cache
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop.exe
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop.pdb
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop.csprojResolveAssemblyReference.cache
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\EVE\StudyGIT\courses\OOP\5\GoingToTheShop\GoingToTheShop\bin\Debug\GoingToTheShop.exe.config
+C:\Users\EVE\StudyGIT\courses\OOP\5\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop.exe
+C:\Users\EVE\StudyGIT\courses\OOP\5\GoingToTheShop\GoingToTheShop\obj\Debug\GoingToTheShop.pdb

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for user in users %}
+    <div>
+        <span>
+            {{ user["username"] }}
+
+            {% if user["active"] %}
+            <a class="btn btn-danger" href={{ url_for("ban", uid=user["ID"]) }}>BAN</a>
+            {% else %}
+            <a class="btn btn-success" href={{ url_for("unban", uid=user["ID"]) }}>UNBAN</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endfor %}
+{% endblock %}

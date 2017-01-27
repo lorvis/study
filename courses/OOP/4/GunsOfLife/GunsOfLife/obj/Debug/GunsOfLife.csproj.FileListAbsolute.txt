@@ -1,0 +1,15 @@
+c:\users\eve\documents\visual studio 2015\Projects\GunsOfLife\GunsOfLife\bin\Debug\GunsOfLife.exe.config
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GunsOfLife\GunsOfLife\obj\Debug\GunsOfLife.csprojResolveAssemblyReference.cache
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GunsOfLife\GunsOfLife\bin\Debug\GunsOfLife.exe
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GunsOfLife\GunsOfLife\bin\Debug\GunsOfLife.pdb
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GunsOfLife\GunsOfLife\obj\Debug\GunsOfLife.exe
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GunsOfLife\GunsOfLife\obj\Debug\GunsOfLife.pdb
+D:\Temp\GunsOfLife\GunsOfLife\bin\Debug\GunsOfLife.exe.config
+D:\Temp\GunsOfLife\GunsOfLife\obj\Debug\GunsOfLife.exe
+D:\Temp\GunsOfLife\GunsOfLife\obj\Debug\GunsOfLife.pdb
+D:\Temp\GunsOfLife\GunsOfLife\bin\Debug\GunsOfLife.exe
+D:\Temp\GunsOfLife\GunsOfLife\bin\Debug\GunsOfLife.pdb
+D:\Temp\GunsOfLife\GunsOfLife\obj\Debug\GunsOfLife.csprojResolveAssemblyReference.cache
+C:\Users\EVE\StudyGIT\courses\OOP\4\GunsOfLife\GunsOfLife\bin\Debug\GunsOfLife.exe.config
+C:\Users\EVE\StudyGIT\courses\OOP\4\GunsOfLife\GunsOfLife\obj\Debug\GunsOfLife.exe
+C:\Users\EVE\StudyGIT\courses\OOP\4\GunsOfLife\GunsOfLife\obj\Debug\GunsOfLife.pdb

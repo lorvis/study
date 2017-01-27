@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{#    <button class = "btn btn-primary btn-lg" data-toggle = "modal" data-target = "#myModal">#}
+{#   Launch demo modal#}
+{#</button>#}
+
+{#<!-- Modal -->#}
+{#<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog"#}
+{#   aria-labelledby = "myModalLabel" aria-hidden = "true">#}
+{##}
+{#   <div class = "modal-dialog">#}
+{#      <div class = "modal-content">#}
+{##}
+{#         <div class = "modal-header">#}
+{#            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">#}
+{#               ×#}
+{#            </button>#}
+{##}
+{#            <h4 class = "modal-title" id = "myModalLabel">#}
+{#               This Modal title#}
+{#            </h4>#}
+{#         </div>#}
+{##}
+{#         <div class = "modal-body">#}
+{#            Press ESC button to exit.#}
+{#         </div>#}
+{##}
+{#         <div class = "modal-footer">#}
+{#            <button type = "button" class = "btn btn-default" data-dismiss = "modal">#}
+{#               Close#}
+{#            </button>#}
+{##}
+{#            <button type = "button" class = "btn btn-primary">#}
+{#               Submit changes#}
+{#            </button>#}
+{#         </div>#}
+{##}
+{#      </div><!-- /.modal-content -->#}
+{#   </div><!-- /.modal-dialog -->#}
+{##}
+{#</div><!-- /.modal -->#}
+{##}
+{#<script>#}
+{#   $(function () { $('#myModal').modal({#}
+{#      keyboard: true#}
+{#   })});#}
+{#</script>#}
+
+    <div class="col-lg-4" id="drive-tree">
+        {{ tree|safe }}
+    </div>
+    <div class="col-lg-3" id="drive-center">
+    </div>
+    <div class="col-lg-1" id="drive-repr">
+        <div id="TreeRepr">
+            <div>
+
+            </div>
+        </div>
+    <br>
+    </div>
+
+
+        <script type="text/javascript">
+
+        var ajaxNullElem = '<h1 class="AjaxNull" style="color: purple;">AjaxError!!</h1>';
+
+    function downloadTreeFile(obj_id){
+{#        window.location = "{{ full_address }}/drive/download/" + obj_id;#}
+        xhrRequestPromise("{{ full_address }}/drive/download/" + obj_id)
+                .then(function (response) {
+                    var a = document.createElement("a");
+                    a.href = "{{ full_address }}/drive/download/" + obj_id;
+                    a.download = document.getElementById(obj_id).parentNode.id;
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+                    delete a;
+                })
+    }
+
+    function contentChangeHiddenState(obj_id) {
+        var cur_elem = document.getElementById(obj_id).parentNode.parentNode;
+        do {
+                cur_elem = cur_elem.nextSibling;
+                if (cur_elem.className == "dircontent")
+                cur_elem.className = "dircontent-hidden";
+
+                else if (cur_elem.className == "dircontent-hidden")
+                cur_elem.className = "dircontent";
+
+        } while (cur_elem.nextSibling != null && (cur_elem.nextSibling.className == "dircontent" || cur_elem.nextSibling.className == "dircontent-hidden"))
+    }
+
+    function updateTreeRepr(obj_id) {
+        xhrRequestPromise("{{ full_address }}" + "/drive/ajax/tree-repr/" + obj_id)
+                .then(function (new_html) {
+                    var elem = document.getElementById("TreeRepr").firstChild;
+                    var new_elem = document.createElement("div");
+                    new_elem.innerHTML = new_html;
+                    elem.parentNode.replaceChild(new_elem, elem);
+                })
+        }
+
+    function xhrRequestPromise(url) {
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    resolve(xhr.responseText);
+                }
+            };
+            xhr.send();
+
+        });
+    }
+
+    </script>
+
+{% endblock %}

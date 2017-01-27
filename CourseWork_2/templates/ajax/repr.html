@@ -1,0 +1,28 @@
+{% if treeobj.type == "f" %}
+    <div>
+        <img src="{{ url_for('static', filename="images/icons/file.png") }}">
+        <div id="filename">{{ treeobj.name }}</div>
+        <div id="filesize">Size: {{ treeobj.size }}</div>
+        <a href="{{ full_address }}/drive/download/{{ treeobj.id }}">Download</a>
+        <a href="{{ full_address }}/drive/delete/{{ treeobj.id }}">Delete</a>
+    </div>
+{% elif treeobj.type == "d" %}
+    <div>
+        <img src="{{ url_for('static', filename="images/icons/directory.png") }}">
+        <div id="filename">{{ treeobj.name }}</div>
+        <form enctype="multipart/form-data" action="{{ full_address }}/drive/upload/{{ treeobj.id }}" method="post">
+        <input type="file" onchange="this.form.submit()" name="file"/>
+        <input type="hidden" value="{{ csrf_token() }}" name="csrf_token"/>
+        </form>
+        <form action="{{ full_address }}/drive/newdir/{{ treeobj.id }}" method="post">
+        <input type="text" name="dirname"/>
+        <input type="submit" value="Create directory" name="submit">
+        <input type="hidden" value="{{ csrf_token() }}" name="csrf_token"/>
+        </form>
+        {% if treeobj.name != "\\" %}
+        <a class="btn btn-danger" href="{{ full_address }}/drive/delete/{{ treeobj.id }}">Delete</a>
+            {% endif %}
+    </div>
+{% else %}
+    <h1>ELEMENT NOT FOUND</h1>
+{% endif %}

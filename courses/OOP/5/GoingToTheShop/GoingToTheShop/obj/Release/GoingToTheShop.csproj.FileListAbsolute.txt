@@ -1,0 +1,14 @@
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\bin\Release\GoingToTheShop.exe.config
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\GoingToTheShop.csprojResolveAssemblyReference.cache
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\MainWindow.g.cs
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\App.g.cs
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\GoingToTheShop_MarkupCompile.cache
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\GoingToTheShop_MarkupCompile.lref
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\bin\Release\GoingToTheShop.exe
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\bin\Release\GoingToTheShop.pdb
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\MainWindow.baml
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\GoingToTheShop.g.resources
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\GoingToTheShop.Properties.Resources.resources
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\GoingToTheShop.csproj.GenerateResource.Cache
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\GoingToTheShop.exe
+C:\Users\EVE\Documents\Visual Studio 2015\Projects\GoingToTheShop\GoingToTheShop\obj\Release\GoingToTheShop.pdb
